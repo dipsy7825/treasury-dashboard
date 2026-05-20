@@ -134,6 +134,14 @@
   <div class="src" id="fed-src">Source: federalreserve.gov &middot; Polymarket</div>
 </div>
 
+<div class="section" id="fed-history-section" style="display: none;">
+  <div class="stitle">FOMC odds &mdash; change over time</div>
+  <div style="position: relative; width: 100%; height: 220px;">
+    <canvas id="fedOdds" role="img" aria-label="FOMC probability change over time for each outcome">FOMC probability change over time.</canvas>
+  </div>
+  <div class="src">Source: Polymarket &middot; sampled every 30 min during US market hours</div>
+</div>
+
 <div class="section">
   <div class="stitle">Current yield curve</div>
   <div style="position: relative; width: 100%; height: 220px;">
@@ -319,15 +327,97 @@ async function loadJSON(path) {
   return r.json();
 }
 
+function renderFedHistory(fedHistory, currentMeeting) {
+  if (!fedHistory || !Array.isArray(fedHistory) || !currentMeeting) return;
+  const filtered = fedHistory.filter(h => h && h.next_meeting === currentMeeting);
+  if (filtered.length < 2) return;
+
+  // Collect all unique outcome labels across the filtered window
+  const labelSet = new Set();
+  filtered.forEach(h => (h.probabilities || []).forEach(p => p && p.label && labelSet.add(p.label)));
+  const allLabels = Array.from(labelSet);
+  // Filter to outcomes that hit >= 2% at least once (drop dead-zero noise lines)
+  const meaningful = allLabels.filter(lbl =>
+    filtered.some(h => (h.probabilities || []).some(p => p.label === lbl && (p.value || 0) >= 0.02))
+  );
+  if (meaningful.length === 0) return;
+
+  // Sort: biggest cut to biggest hike
+  meaningful.sort((a, b) => bpFromLabel(a) - bpFromLabel(b));
+
+  // Color ramp: cold (cuts) -> navy (hold) -> warm (hikes)
+  function colorFor(label) {
+    const bp = bpFromLabel(label);
+    if (bp <= -50) return "#1e40af";
+    if (bp < 0)    return "#3b82f6";
+    if (bp === 0)  return "#1f3a5f";
+    if (bp < 50)   return "#b45309";
+    return "#b91c1c";
+  }
+
+  const labels = filtered.map(h => h.timestamp);
+  const datasets = meaningful.map(label => ({
+    label,
+    data: filtered.map(h => {
+      const p = (h.probabilities || []).find(x => x.label === label);
+      return p ? Math.round((p.value || 0) * 1000) / 10 : null;
+    }),
+    borderColor: colorFor(label),
+    backgroundColor: colorFor(label),
+    borderWidth: 1.5,
+    pointRadius: 0,
+    tension: 0.25,
+    spanGaps: true,
+  }));
+
+  document.getElementById("fed-history-section").style.display = "";
+  new Chart(document.getElementById("fedOdds"), {
+    type: "line",
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: true, position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } },
+        tooltip: { callbacks: {
+          title: ctx => {
+            try { return new Date(ctx[0].label).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }); }
+            catch (e) { return ctx[0].label; }
+          },
+          label: ctx => ctx.dataset.label + ": " + (ctx.parsed.y != null ? ctx.parsed.y.toFixed(0) + "%" : "n/a")
+        }}
+      },
+      scales: {
+        x: {
+          ticks: {
+            maxTicksLimit: 6, font: { size: 10 },
+            callback: function(v) {
+              const raw = this.getLabelForValue(v);
+              try { return new Date(raw).toLocaleDateString("en-US", { month: "short", day: "numeric" }); }
+              catch (e) { return raw; }
+            }
+          },
+          grid: { display: false }
+        },
+        y: {
+          min: 0, max: 100,
+          ticks: { callback: v => v + "%", font: { size: 10 } },
+          grid: { color: "#eee" }
+        }
+      }
+    }
+  });
+}
+
 async function main() {
-  let yields, history, sofr, sofrHist, fed;
+  let yields, history, sofr, sofrHist, fed, fedHistory;
   try {
-    [yields, history, sofr, sofrHist, fed] = await Promise.all([
+    [yields, history, sofr, sofrHist, fed, fedHistory] = await Promise.all([
       loadJSON("data/yields.json"),
       loadJSON("data/history.json"),
       loadJSON("data/sofr.json"),
       loadJSON("data/sofr_history.json"),
       loadJSON("data/fed.json"),
+      loadJSON("data/fed_history.json").catch(() => []),
     ]);
   } catch (e) {
     document.getElementById("ts").textContent = "Data unavailable";
@@ -345,6 +435,7 @@ async function main() {
   renderTable(yields.table || [], "ust-body", "tenor");
   renderTable(sofr.table || [], "sofr-body", "rate");
   renderFOMC(fed);
+  renderFedHistory(fedHistory || [], fed && fed.next_meeting);
   renderCurve(yields);
   renderTrend(history || [], sofrHist || []);
 }
