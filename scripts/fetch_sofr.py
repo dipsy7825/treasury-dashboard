@@ -19,7 +19,10 @@ SOFR_HIST_URL = (
     "https://markets.newyorkfed.org/api/rates/secured/sofr/search.json"
     "?startDate={start}&endDate={end}"
 )
-SOFR_AI_URL = "https://markets.newyorkfed.org/api/rates/secured/sofrai/last/2.json"
+SOFR_AI_HIST_URL = (
+    "https://markets.newyorkfed.org/api/rates/secured/sofrai/search.json"
+    "?startDate={start}&endDate={end}"
+)
 
 
 def fetch(url):
@@ -94,12 +97,35 @@ def main():
     def window_avg(start, end):
         return average([h["sofr"] for h in history if start <= parse_date(h["date"]) <= end])
 
-    # SOFR Averages and Index
-    ai_response = fetch(SOFR_AI_URL)
+    # SOFR Averages and Index history (for rolling-avg rows + their period averages)
+    ai_response = fetch(SOFR_AI_HIST_URL.format(
+        start=start_dt.strftime("%Y-%m-%d"),
+        end=end_dt.strftime("%Y-%m-%d"),
+    ))
     ai = extract_records(ai_response)
     print(f"SOFR averages: fetched {len(ai)} raw records")
-    ai_latest = ai[0] if ai else {}
-    ai_prev = ai[1] if len(ai) > 1 else {}
+    ai_history = []
+    for r in ai:
+        if not isinstance(r, dict):
+            continue
+        d = r.get("effectiveDate")
+        if not d:
+            continue
+        ai_history.append({
+            "date": d,
+            "30d":  to_float(r.get("average30day")),
+            "90d":  to_float(r.get("average90day")),
+            "180d": to_float(r.get("average180day")),
+        })
+    ai_history.sort(key=lambda r: parse_date(r["date"]), reverse=False)
+    ai_latest = ai_history[-1] if ai_history else {}
+    ai_prev = ai_history[-2] if len(ai_history) > 1 else {}
+
+    def ai_window_avg(key, start, end):
+        return average([
+            h[key] for h in ai_history
+            if h.get(key) is not None and start <= parse_date(h["date"]) <= end
+        ])
 
     table = [{
         "rate": "O/N SOFR",
@@ -111,22 +137,22 @@ def main():
         "avg_52w": window_avg(w52_start, latest_dt),
     }]
 
-    for label, field in [
-        ("30D Avg SOFR", "average30day"),
-        ("90D Avg SOFR", "average90day"),
-        ("180D Avg SOFR", "average180day"),
+    for label, key in [
+        ("30D Avg SOFR", "30d"),
+        ("90D Avg SOFR", "90d"),
+        ("180D Avg SOFR", "180d"),
     ]:
-        cur = to_float(ai_latest.get(field))
-        prv = to_float(ai_prev.get(field))
+        cur = ai_latest.get(key)
+        prv = ai_prev.get(key)
         chg = round((cur - prv) * 100, 1) if (cur is not None and prv is not None) else None
         table.append({
             "rate": label,
             "current": cur,
             "change_bp": chg,
-            "avg_1w": None,
-            "avg_1m": None,
-            "avg_ytd": None,
-            "avg_52w": None,
+            "avg_1w":  ai_window_avg(key, w1_start, latest_dt),
+            "avg_1m":  ai_window_avg(key, m1_start, latest_dt),
+            "avg_ytd": ai_window_avg(key, year_start, latest_dt),
+            "avg_52w": ai_window_avg(key, w52_start, latest_dt),
         })
 
     snapshot = {
