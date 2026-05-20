@@ -48,17 +48,31 @@ def to_float(v):
         return None
 
 
+def extract_records(response):
+    """NY Fed responses wrap records in 'refRates' on dict responses, but some endpoints return a plain list."""
+    if response is None:
+        return []
+    if isinstance(response, dict):
+        return response.get("refRates") or response.get("rates") or []
+    if isinstance(response, list):
+        return response
+    return []
+
+
 def main():
     end_dt = datetime.utcnow()
     start_dt = end_dt - timedelta(days=400)
-    hist = fetch(SOFR_HIST_URL.format(
+    hist_response = fetch(SOFR_HIST_URL.format(
         start=start_dt.strftime("%Y-%m-%d"),
         end=end_dt.strftime("%Y-%m-%d"),
-    )) or []
+    ))
+    hist = extract_records(hist_response)
+    print(f"SOFR history: fetched {len(hist)} raw records")
 
-    # NY Fed returns a list of records directly
     history = []
     for r in hist:
+        if not isinstance(r, dict):
+            continue
         d = r.get("effectiveDate")
         rate = to_float(r.get("percentRate"))
         if d and rate is not None:
@@ -81,7 +95,9 @@ def main():
         return average([h["sofr"] for h in history if start <= parse_date(h["date"]) <= end])
 
     # SOFR Averages and Index
-    ai = fetch(SOFR_AI_URL) or []
+    ai_response = fetch(SOFR_AI_URL)
+    ai = extract_records(ai_response)
+    print(f"SOFR averages: fetched {len(ai)} raw records")
     ai_latest = ai[0] if ai else {}
     ai_prev = ai[1] if len(ai) > 1 else {}
 
