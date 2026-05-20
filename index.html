@@ -38,6 +38,12 @@
     text-align: right; font-variant-numeric: tabular-nums; }
   td:first-child { text-align: left; font-family: Garamond, Georgia, serif; font-size: 15px; font-weight: 500; }
   tr:last-child td { border-bottom: none; }
+  /* Highlight the Current column (2nd col) */
+  th:nth-child(2), td:nth-child(2) {
+    background: #f5efe0;
+    border-right: 1px solid #d8d4c8;
+  }
+  th:nth-child(3), td:nth-child(3) { border-left: 0; }
   .cur { font-size: 16px; font-weight: 500; }
   .chg { font-size: 11.5px; color: #999; display: block; margin-top: 1px; }
   .up { color: #b91c1c; }
@@ -58,11 +64,30 @@
   .empty { background: #fffaf0; border: 0.5px solid #fde68a; border-radius: 6px;
     padding: 12px; margin-bottom: 12px; font-size: 13px; font-family: Georgia, serif; color: #92400e; }
   @media (max-width: 520px) {
-    body { padding: 10px; }
-    th, td { font-size: 12.5px; padding: 6px 2px; }
-    .cur { font-size: 14px; }
-    .fed { grid-template-columns: 1fr; }
-    .probs { justify-content: flex-start; }
+    body { padding: 8px; }
+    header { margin-bottom: 10px; padding-bottom: 6px; }
+    h1 { font-size: 18px; letter-spacing: 0.3px; }
+    .ts { font-size: 10.5px; }
+    .section { padding: 9px 10px; margin-bottom: 8px; border-radius: 5px; }
+    .stitle { font-size: 10px; margin-bottom: 6px; letter-spacing: 0.5px; }
+    th { font-size: 9px; padding: 4px 2px 5px; letter-spacing: 0.3px; }
+    td { font-size: 11.5px; padding: 5px 2px; }
+    td:first-child { font-size: 12px; }
+    .cur { font-size: 12.5px; }
+    .chg { font-size: 9.5px; }
+    .fed { grid-template-columns: 1fr; gap: 8px; }
+    .feddate { font-size: 11px; }
+    .fedwhen { font-size: 16px; }
+    .probs { justify-content: flex-start; gap: 4px; }
+    .prob { min-width: 0; flex: 1; font-size: 10px; padding: 5px 4px; }
+    .prob .pv { font-size: 12px; }
+    .src { font-size: 9px; }
+    .ft { font-size: 10px; }
+  }
+  @media (max-width: 380px) {
+    th, td { padding: 4px 1px; }
+    th { font-size: 8.5px; }
+    td { font-size: 11px; }
   }
 </style>
 </head>
@@ -163,6 +188,15 @@ function renderTable(rows, tbodyId, firstColKey) {
   `).join("");
 }
 
+function bpFromLabel(label) {
+  if (!label) return 0;
+  const m = String(label).match(/(\d+)/);
+  const n = m ? parseInt(m[1], 10) : 0;
+  if (/decrease|cut|lower/i.test(label)) return -n;
+  if (/increase|hike|raise|higher/i.test(label)) return n;
+  return 0;
+}
+
 function renderFOMC(fed) {
   if (!fed || !fed.next_meeting) {
     document.getElementById("fed-when").textContent = "—";
@@ -173,10 +207,12 @@ function renderFOMC(fed) {
   document.getElementById("fed-when").textContent = dt.toLocaleDateString("en-US", opts);
 
   const probsEl = document.getElementById("probs");
-  const probs = fed.probabilities || [];
+  const probs = (fed.probabilities || []).slice();
   if (probs.length === 0) {
     probsEl.innerHTML = '<div class="prob"><em>No active market</em></div>';
   } else {
+    // Sort left-to-right from biggest cut to biggest hike
+    probs.sort((a, b) => bpFromLabel(a.label) - bpFromLabel(b.label));
     const lead = probs.reduce((a, b) => b.value > a.value ? b : a);
     probsEl.innerHTML = probs.map(p => `
       <div class="prob${p === lead ? ' lead' : ''}">
