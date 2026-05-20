@@ -15,7 +15,7 @@ import os
 import sys
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 # 2026 + 2027 FOMC decision-day dates (second day of two-day meetings).
 # Source: federalreserve.gov/monetarypolicy/fomccalendars.htm
@@ -148,7 +148,49 @@ def main():
     with open("data/fed.json", "w") as f:
         json.dump(snapshot, f, indent=2)
 
-    print(f"Next FOMC: {snapshot['next_meeting']}, Polymarket event: {snapshot['event_title']}, outcomes: {len(probs)}")
+    # Append to history (deduped by probability values, trimmed to last 90 days)
+    history_path = "data/fed_history.json"
+    history = []
+    if os.path.exists(history_path):
+        try:
+            with open(history_path) as f:
+                history = json.load(f) or []
+        except (json.JSONDecodeError, IOError):
+            history = []
+
+    new_entry = {
+        "timestamp": snapshot["fetched_at_utc"],
+        "next_meeting": snapshot["next_meeting"],
+        "event_slug": snapshot["event_slug"],
+        "probabilities": probs,
+    }
+
+    should_append = True
+    if history:
+        last = history[-1]
+        last_probs_map = {p.get("label"): p.get("value") for p in (last.get("probabilities") or [])}
+        new_probs_map = {p.get("label"): p.get("value") for p in probs}
+        same_meeting = last.get("next_meeting") == new_entry["next_meeting"]
+        if same_meeting and last_probs_map == new_probs_map:
+            should_append = False
+
+    if should_append and probs:
+        history.append(new_entry)
+
+    # Trim to last 90 days
+    cutoff = datetime.utcnow() - timedelta(days=90)
+    def in_window(h):
+        try:
+            ts = h.get("timestamp", "").replace("Z", "")
+            return datetime.fromisoformat(ts) >= cutoff
+        except (TypeError, ValueError):
+            return True
+    history = [h for h in history if in_window(h)]
+
+    with open(history_path, "w") as f:
+        json.dump(history, f, indent=2)
+
+    print(f"Next FOMC: {snapshot['next_meeting']}, Polymarket event: {snapshot['event_title']}, outcomes: {len(probs)}, history entries: {len(history)}")
 
 
 if __name__ == "__main__":
