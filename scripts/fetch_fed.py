@@ -165,14 +165,17 @@ def main():
         "probabilities": probs,
     }
 
+    # Always append so the chart has a heartbeat data point, even when prices are stable.
+    # Only skip if we appended within the last 10 minutes (guards against duplicate workflow triggers).
     should_append = True
-    if history:
+    if history and probs:
         last = history[-1]
-        last_probs_map = {p.get("label"): p.get("value") for p in (last.get("probabilities") or [])}
-        new_probs_map = {p.get("label"): p.get("value") for p in probs}
-        same_meeting = last.get("next_meeting") == new_entry["next_meeting"]
-        if same_meeting and last_probs_map == new_probs_map:
-            should_append = False
+        try:
+            last_ts = datetime.fromisoformat(last.get("timestamp", "").replace("Z", ""))
+            if (datetime.utcnow() - last_ts).total_seconds() < 600:
+                should_append = False
+        except (TypeError, ValueError):
+            pass
 
     if should_append and probs:
         history.append(new_entry)
