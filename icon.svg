@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <rect width="180" height="180" rx="36" fill="#1f3a5f"/>
+  <path d="M 22 138 L 50 128 L 78 108 L 106 82 L 134 64 L 158 56"
+        stroke="#fafaf7" stroke-width="6" fill="none"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 22 138 L 50 128 L 78 108 L 106 82 L 134 64 L 158 56 L 158 154 L 22 154 Z"
+        fill="#fafaf7" fill-opacity="0.12"/>
+  <circle cx="22"  cy="138" r="4.5" fill="#fafaf7"/>
+  <circle cx="50"  cy="128" r="4.5" fill="#fafaf7"/>
+  <circle cx="78"  cy="108" r="4.5" fill="#fafaf7"/>
+  <circle cx="106" cy="82"  r="4.5" fill="#fafaf7"/>
+  <circle cx="134" cy="64"  r="4.5" fill="#fafaf7"/>
+  <circle cx="158" cy="56"  r="4.5" fill="#fafaf7"/>
+  <text x="22" y="48" font-family="Garamond, Georgia, 'Times New Roman', serif" font-size="26" font-weight="600" fill="#fafaf7" letter-spacing="1">UST</text>
+</svg>
