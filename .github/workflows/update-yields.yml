@@ -1,0 +1,48 @@
+name: Update yields and SOFR
+
+on:
+  schedule:
+    # 21:30 UTC = ~5:30pm ET, weekdays. Treasury publishes ~4pm ET; NY Fed SOFR ~8am ET.
+    - cron: '30 21 * * 1-5'
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/fetch_yields.py'
+      - 'scripts/fetch_sofr.py'
+      - '.github/workflows/update-yields.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch Treasury yields
+        run: python3 scripts/fetch_yields.py
+        continue-on-error: true
+
+      - name: Fetch SOFR
+        run: python3 scripts/fetch_sofr.py
+        continue-on-error: true
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/yields.json data/history.json data/sofr.json data/sofr_history.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update yields and SOFR $(date -u +%Y-%m-%d)"
+            git push
+          fi

@@ -1,0 +1,9 @@
+{
+  "latest_date": null,
+  "previous_date": null,
+  "yields": {},
+  "table": [],
+  "fetched_at_utc": null,
+  "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/",
+  "note": "Placeholder. Replaced on first GitHub Actions run."
+}

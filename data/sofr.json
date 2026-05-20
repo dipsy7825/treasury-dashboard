@@ -1,0 +1,8 @@
+{
+  "latest_date": null,
+  "previous_date": null,
+  "table": [],
+  "fetched_at_utc": null,
+  "source": "https://markets.newyorkfed.org/api/rates/secured/",
+  "note": "Placeholder. Replaced on first GitHub Actions run."
+}

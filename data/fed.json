@@ -1,0 +1,10 @@
+{
+  "next_meeting": null,
+  "probabilities": [],
+  "event_title": null,
+  "event_slug": null,
+  "source_url": null,
+  "fetched_at_utc": null,
+  "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+  "note": "Placeholder. Replaced on first GitHub Actions run."
+}

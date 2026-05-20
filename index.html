@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="US Rates">
+<meta name="theme-color" content="#fafaf7">
+<title>US rates dashboard</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Garamond, "EB Garamond", Georgia, "Times New Roman", serif;
+    background: #fafaf7;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 16px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+  header { display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid #d8d4c8; padding-bottom: 10px; margin-bottom: 14px; }
+  h1 { font-size: 22px; margin: 0; font-weight: 500; letter-spacing: 0.5px; color: #1a1a1a; }
+  .ts { color: #666; font-size: 12px; font-family: Georgia, serif; }
+  .section { background: white; border: 0.5px solid #e0ddd5; border-radius: 6px;
+    padding: 12px 14px; margin-bottom: 12px; }
+  .stitle { font-size: 11px; color: #555; text-transform: uppercase;
+    letter-spacing: 0.6px; margin-bottom: 8px; font-family: Georgia, serif; }
+  table { width: 100%; border-collapse: collapse; font-family: Georgia, serif; }
+  th { font-family: Georgia, serif; font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.5px; color: #777; text-align: right; padding: 6px 4px 8px;
+    border-bottom: 1px solid #e0ddd5; font-weight: 500; }
+  th:first-child { text-align: left; }
+  td { font-size: 14px; padding: 7px 4px; border-bottom: 0.5px solid #f0ede5;
+    text-align: right; font-variant-numeric: tabular-nums; }
+  td:first-child { text-align: left; font-family: Garamond, Georgia, serif; font-size: 15px; font-weight: 500; }
+  tr:last-child td { border-bottom: none; }
+  .cur { font-size: 16px; font-weight: 500; }
+  .chg { font-size: 11.5px; color: #999; display: block; margin-top: 1px; }
+  .up { color: #b91c1c; }
+  .down { color: #15803d; }
+  .flat { color: #666; }
+  .fed { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; }
+  .feddate { font-size: 13px; font-family: Georgia, serif; color: #444; }
+  .fedwhen { font-size: 18px; font-weight: 500; line-height: 1.15; margin-top: 2px; }
+  .probs { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .prob { background: #f5f3ec; padding: 6px 10px; border-radius: 4px;
+    font-family: Georgia, serif; font-size: 12px; min-width: 90px; text-align: center; }
+  .prob.lead { background: #1f3a5f; color: white; }
+  .prob .pv { font-size: 15px; font-weight: 500; display: block; }
+  .src { font-size: 10px; color: #999; margin-top: 6px; text-align: right; font-family: Georgia, serif; }
+  canvas { width: 100% !important; }
+  .ft { font-size: 11px; color: #888; text-align: center; margin-top: 14px; font-family: Georgia, serif; }
+  .ft a { color: #888; }
+  .empty { background: #fffaf0; border: 0.5px solid #fde68a; border-radius: 6px;
+    padding: 12px; margin-bottom: 12px; font-size: 13px; font-family: Georgia, serif; color: #92400e; }
+  @media (max-width: 520px) {
+    body { padding: 10px; }
+    th, td { font-size: 12.5px; padding: 6px 2px; }
+    .cur { font-size: 14px; }
+    .fed { grid-template-columns: 1fr; }
+    .probs { justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>US rates dashboard</h1>
+  <span class="ts" id="ts">Loading&hellip;</span>
+</header>
+
+<div id="empty-banner"></div>
+
+<div class="section">
+  <div class="stitle">Treasury yields</div>
+  <table>
+    <thead><tr>
+      <th>Tenor</th><th>Current</th><th>1W avg</th><th>1M avg</th><th>YTD avg</th><th>52W avg</th>
+    </tr></thead>
+    <tbody id="ust-body"></tbody>
+  </table>
+</div>
+
+<div class="section">
+  <div class="stitle">SOFR (NY Fed)</div>
+  <table>
+    <thead><tr>
+      <th>Rate</th><th>Current</th><th>1W avg</th><th>1M avg</th><th>YTD avg</th><th>52W avg</th>
+    </tr></thead>
+    <tbody id="sofr-body"></tbody>
+  </table>
+  <div class="src">Source: Federal Reserve Bank of New York &middot; markets.newyorkfed.org/api</div>
+</div>
+
+<div class="section">
+  <div class="stitle">Next FOMC meeting</div>
+  <div class="fed">
+    <div>
+      <div class="feddate">Decision day</div>
+      <div class="fedwhen" id="fed-when">&mdash;</div>
+    </div>
+    <div class="probs" id="probs"></div>
+  </div>
+  <div class="src" id="fed-src">Source: federalreserve.gov &middot; Polymarket</div>
+</div>
+
+<div class="section">
+  <div class="stitle">Current yield curve</div>
+  <div style="position: relative; width: 100%; height: 220px;">
+    <canvas id="curve" role="img" aria-label="Yield curve from 1 month to 30 year tenor">Yield curve 1M to 30Y.</canvas>
+  </div>
+</div>
+
+<div class="section">
+  <div class="stitle">10Y, 2Y &amp; SOFR &mdash; trailing one year</div>
+  <div style="position: relative; width: 100%; height: 240px;">
+    <canvas id="trend" role="img" aria-label="Trailing one year trend of 10Y, 2Y and overnight SOFR">10Y, 2Y, SOFR trailing year.</canvas>
+  </div>
+</div>
+
+<div class="ft">
+  Sources:
+  <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve" target="_blank" rel="noopener">U.S. Treasury</a> &middot;
+  <a href="https://www.newyorkfed.org/markets/reference-rates/sofr" target="_blank" rel="noopener">NY Fed SOFR</a> &middot;
+  <a href="https://polymarket.com/" target="_blank" rel="noopener">Polymarket</a> &middot;
+  Updates Mon&ndash;Fri ~5:30pm ET
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
+<script>
+const KEY_TENORS_CHART = ["10 Yr", "2 Yr"];
+const CURVE_ORDER = ["1 Mo", "3 Mo", "6 Mo", "1 Yr", "2 Yr", "3 Yr", "5 Yr", "7 Yr", "10 Yr", "20 Yr", "30 Yr"];
+
+function fmtPct(v) {
+  if (v == null) return "&mdash;";
+  return v.toFixed(2) + '<span style="color:#aaa;font-size:11px"> %</span>';
+}
+function fmtChg(bp) {
+  if (bp == null) return '<span class="chg flat">&mdash;</span>';
+  const cls = bp > 0 ? "up" : (bp < 0 ? "down" : "flat");
+  const sign = bp > 0 ? "+" : (bp === 0 ? "±" : "");
+  return '<span class="chg ' + cls + '">' + sign + bp.toFixed(1) + " bp</span>";
+}
+
+function renderTable(rows, tbodyId, firstColKey) {
+  const body = document.getElementById(tbodyId);
+  if (!rows || rows.length === 0) {
+    body.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#999">No data</td></tr>';
+    return;
+  }
+  body.innerHTML = rows.map(r => `
+    <tr>
+      <td>${r[firstColKey]}</td>
+      <td><span class="cur">${fmtPct(r.current)}</span>${fmtChg(r.change_bp)}</td>
+      <td>${fmtPct(r.avg_1w)}</td>
+      <td>${fmtPct(r.avg_1m)}</td>
+      <td>${fmtPct(r.avg_ytd)}</td>
+      <td>${fmtPct(r.avg_52w)}</td>
+    </tr>
+  `).join("");
+}
+
+function renderFOMC(fed) {
+  if (!fed || !fed.next_meeting) {
+    document.getElementById("fed-when").textContent = "—";
+    return;
+  }
+  const dt = new Date(fed.next_meeting + "T00:00:00");
+  const opts = { year: "numeric", month: "long", day: "numeric" };
+  document.getElementById("fed-when").textContent = dt.toLocaleDateString("en-US", opts);
+
+  const probsEl = document.getElementById("probs");
+  const probs = fed.probabilities || [];
+  if (probs.length === 0) {
+    probsEl.innerHTML = '<div class="prob"><em>No active market</em></div>';
+  } else {
+    const lead = probs.reduce((a, b) => b.value > a.value ? b : a);
+    probsEl.innerHTML = probs.map(p => `
+      <div class="prob${p === lead ? ' lead' : ''}">
+        ${p.label}<span class="pv">${Math.round(p.value * 100)}%</span>
+      </div>
+    `).join("");
+  }
+
+  const srcEl = document.getElementById("fed-src");
+  let srcHTML = "Source: federalreserve.gov";
+  if (fed.source_url) {
+    srcHTML += ' &middot; <a href="' + fed.source_url + '" target="_blank" rel="noopener">Polymarket: ' + (fed.event_title || "Fed decision") + '</a>';
+  } else {
+    srcHTML += " &middot; Polymarket";
+  }
+  srcEl.innerHTML = srcHTML;
+}
+
+function renderCurve(snap) {
+  const labels = CURVE_ORDER.filter(m => snap.yields && snap.yields[m] != null);
+  const data = labels.map(m => snap.yields[m]);
+  new Chart(document.getElementById("curve"), {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: snap.latest_date || "Current",
+        data: data,
+        borderColor: "#1f3a5f",
+        backgroundColor: "rgba(31,58,95,0.08)",
+        fill: true, tension: 0.25, pointRadius: 4,
+        pointBackgroundColor: "#1f3a5f",
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.parsed.y.toFixed(2) + "%" } } },
+      scales: {
+        y: { ticks: { callback: v => v + "%" }, grid: { color: "#eee" } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+}
+
+function renderTrend(ustHist, sofrHist) {
+  const yMap = new Map();
+  for (const o of ustHist) {
+    const d = o.date; // MM/DD/YYYY
+    yMap.set(d, { y10: o.yields["10 Yr"] ?? null, y2: o.yields["2 Yr"] ?? null });
+  }
+  const sofrMap = new Map();
+  for (const o of (sofrHist || [])) {
+    // sofr_history uses YYYY-MM-DD; convert to MM/DD/YYYY to match Treasury
+    const parts = (o.date || "").split("-");
+    if (parts.length === 3) {
+      const key = `${parts[1]}/${parts[2]}/${parts[0]}`;
+      sofrMap.set(key, o.sofr);
+    }
+  }
+
+  // Build unified series sorted by date
+  const allDates = Array.from(new Set([...yMap.keys(), ...sofrMap.keys()]));
+  allDates.sort((a, b) => {
+    const [am, ad, ay] = a.split("/").map(Number);
+    const [bm, bd, by] = b.split("/").map(Number);
+    return new Date(ay, am - 1, ad) - new Date(by, bm - 1, bd);
+  });
+  // Trim to last 252 observations
+  const trimmed = allDates.slice(-260);
+
+  const y10 = trimmed.map(d => yMap.get(d)?.y10 ?? null);
+  const y2  = trimmed.map(d => yMap.get(d)?.y2  ?? null);
+  const sofr = trimmed.map(d => sofrMap.get(d) ?? null);
+
+  new Chart(document.getElementById("trend"), {
+    type: "line",
+    data: {
+      labels: trimmed,
+      datasets: [
+        { label: "10 Yr",    data: y10,  borderColor: "#1f3a5f", borderWidth: 1.5, pointRadius: 0, tension: 0.1, spanGaps: true },
+        { label: "2 Yr",     data: y2,   borderColor: "#b45309", borderWidth: 1.5, pointRadius: 0, tension: 0.1, borderDash: [4,3], spanGaps: true },
+        { label: "O/N SOFR", data: sofr, borderColor: "#15803d", borderWidth: 1.5, pointRadius: 0, tension: 0.1, borderDash: [1,3], spanGaps: true },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: true, position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } },
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ": " + (ctx.parsed.y != null ? ctx.parsed.y.toFixed(2) + "%" : "n/a") } }
+      },
+      scales: {
+        x: { ticks: { maxTicksLimit: 6, font: { size: 10 } }, grid: { display: false } },
+        y: { ticks: { callback: v => v + "%" }, grid: { color: "#eee" } }
+      }
+    }
+  });
+}
+
+async function loadJSON(path) {
+  const r = await fetch(path + "?_=" + Date.now());
+  return r.json();
+}
+
+async function main() {
+  let yields, history, sofr, sofrHist, fed;
+  try {
+    [yields, history, sofr, sofrHist, fed] = await Promise.all([
+      loadJSON("data/yields.json"),
+      loadJSON("data/history.json"),
+      loadJSON("data/sofr.json"),
+      loadJSON("data/sofr_history.json"),
+      loadJSON("data/fed.json"),
+    ]);
+  } catch (e) {
+    document.getElementById("ts").textContent = "Data unavailable";
+    return;
+  }
+
+  if (!yields.latest_date) {
+    document.getElementById("ts").textContent = "Awaiting first data pull";
+    document.getElementById("empty-banner").innerHTML =
+      '<div class="empty"><strong>No data yet.</strong> Trigger the workflow: Actions tab &rarr; Update rates data &rarr; Run workflow.</div>';
+    return;
+  }
+
+  document.getElementById("ts").textContent = "As of " + yields.latest_date;
+  renderTable(yields.table || [], "ust-body", "tenor");
+  renderTable(sofr.table || [], "sofr-body", "rate");
+  renderFOMC(fed);
+  renderCurve(yields);
+  renderTrend(history || [], sofrHist || []);
+}
+
+main();
+</script>
+</body>
+</html>
