@@ -1,10 +1,30 @@
 {
-  "next_meeting": null,
-  "probabilities": [],
-  "event_title": null,
-  "event_slug": null,
-  "source_url": null,
-  "fetched_at_utc": null,
-  "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
-  "note": "Placeholder. Replaced on first GitHub Actions run."
+  "next_meeting": "2026-06-17",
+  "probabilities": [
+    {
+      "label": "No change",
+      "value": 0.9775
+    },
+    {
+      "label": "25 bps decrease",
+      "value": 0.0115
+    },
+    {
+      "label": "25 bps increase",
+      "value": 0.0075
+    },
+    {
+      "label": "50+ bps decrease",
+      "value": 0.0045
+    },
+    {
+      "label": "50+ bps increase",
+      "value": 0.0025
+    }
+  ],
+  "event_title": "Fed Decision in June?",
+  "event_slug": "fed-decision-in-june-825",
+  "source_url": "https://polymarket.com/event/fed-decision-in-june-825",
+  "fetched_at_utc": "2026-05-20T15:20:16.567667Z",
+  "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
