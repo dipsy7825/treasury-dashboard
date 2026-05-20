@@ -1,9 +1,60 @@
 {
-  "latest_date": null,
-  "previous_date": null,
-  "yields": {},
-  "table": [],
-  "fetched_at_utc": null,
-  "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/",
-  "note": "Placeholder. Replaced on first GitHub Actions run."
+  "latest_date": "05/19/2026",
+  "previous_date": "05/18/2026",
+  "yields": {
+    "1 Mo": 3.66,
+    "1.5 Month": 3.66,
+    "2 Mo": 3.66,
+    "3 Mo": 3.67,
+    "4 Mo": 3.75,
+    "6 Mo": 3.77,
+    "1 Yr": 3.83,
+    "2 Yr": 4.13,
+    "3 Yr": 4.2,
+    "5 Yr": 4.32,
+    "7 Yr": 4.5,
+    "10 Yr": 4.67,
+    "20 Yr": 5.19,
+    "30 Yr": 5.18
+  },
+  "table": [
+    {
+      "tenor": "2 Yr",
+      "current": 4.13,
+      "change_bp": 6.0,
+      "avg_1w": 4.045,
+      "avg_1m": 3.9086,
+      "avg_ytd": 3.6841,
+      "avg_52w": 3.6797
+    },
+    {
+      "tenor": "5 Yr",
+      "current": 4.32,
+      "change_bp": 5.0,
+      "avg_1w": 4.2033,
+      "avg_1m": 4.0482,
+      "avg_ytd": 3.8576,
+      "avg_52w": 3.8137
+    },
+    {
+      "tenor": "10 Yr",
+      "current": 4.67,
+      "change_bp": 6.0,
+      "avg_1w": 4.5433,
+      "avg_1m": 4.4155,
+      "avg_ytd": 4.2624,
+      "avg_52w": 4.2394
+    },
+    {
+      "tenor": "30 Yr",
+      "current": 5.18,
+      "change_bp": 4.0,
+      "avg_1w": 5.0867,
+      "avg_1m": 4.985,
+      "avg_ytd": 4.8665,
+      "avg_52w": 4.8294
+    }
+  ],
+  "fetched_at_utc": "2026-05-20T15:24:29.179742Z",
+  "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve&field_tdr_date_value=2026&page&_format=csv"
 }
