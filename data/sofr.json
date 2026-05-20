@@ -1,8 +1,44 @@
 {
-  "latest_date": null,
-  "previous_date": null,
-  "table": [],
-  "fetched_at_utc": null,
-  "source": "https://markets.newyorkfed.org/api/rates/secured/",
-  "note": "Placeholder. Replaced on first GitHub Actions run."
+  "latest_date": "2026-05-19",
+  "previous_date": "2026-05-18",
+  "table": [
+    {
+      "rate": "O/N SOFR",
+      "current": 3.51,
+      "change_bp": -2.0,
+      "avg_1w": 3.5567,
+      "avg_1m": 3.6109,
+      "avg_ytd": 3.6446,
+      "avg_52w": 3.9831
+    },
+    {
+      "rate": "30D Avg SOFR",
+      "current": 3.61645,
+      "change_bp": -0.5,
+      "avg_1w": null,
+      "avg_1m": null,
+      "avg_ytd": null,
+      "avg_52w": null
+    },
+    {
+      "rate": "90D Avg SOFR",
+      "current": 3.65278,
+      "change_bp": -0.2,
+      "avg_1w": null,
+      "avg_1m": null,
+      "avg_ytd": null,
+      "avg_52w": null
+    },
+    {
+      "rate": "180D Avg SOFR",
+      "current": 3.72534,
+      "change_bp": -0.2,
+      "avg_1w": null,
+      "avg_1m": null,
+      "avg_ytd": null,
+      "avg_52w": null
+    }
+  ],
+  "fetched_at_utc": "2026-05-20T15:39:47.176710Z",
+  "source": "https://markets.newyorkfed.org/api/rates/secured/"
 }
