@@ -35,11 +35,15 @@ jobs:
         run: python3 scripts/fetch_sofr.py
         continue-on-error: true
 
+      - name: Fetch historical FOMC decisions
+        run: python3 scripts/fetch_rate_history.py
+        continue-on-error: true
+
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/yields.json data/history.json data/sofr.json data/sofr_history.json
+          git add data/yields.json data/history.json data/sofr.json data/sofr_history.json data/rate_history.json
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
