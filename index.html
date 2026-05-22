@@ -171,7 +171,7 @@
 <div class="section">
   <div class="stitle">Treasury yields &amp; SOFR &mdash; trailing one year</div>
   <div style="position: relative; width: 100%; height: 260px;">
-    <canvas id="trend" role="img" aria-label="Trailing one year trend of 30Y, 10Y, 5Y, 2Y Treasury yields and overnight SOFR">Trailing year trend.</canvas>
+    <canvas id="trend" role="img" aria-label="Trailing one year trend of 1Y, 5Y, 30Y Treasury yields and overnight SOFR">Trailing year trend.</canvas>
   </div>
 </div>
 
@@ -195,6 +195,30 @@
 <script>
 const KEY_TENORS_CHART = ["10 Yr", "2 Yr"];
 const CURVE_ORDER = ["1 Mo", "3 Mo", "6 Mo", "1 Yr", "2 Yr", "3 Yr", "5 Yr", "7 Yr", "10 Yr", "20 Yr", "30 Yr"];
+
+// Yahoo-Finance-style crosshair: vertical dashed line follows the cursor on hover
+const crosshairPlugin = {
+  id: "crosshair",
+  afterDraw(chart) {
+    const active = chart.tooltip && chart.tooltip._active;
+    if (!active || active.length === 0) return;
+    const x = active[0].element.x;
+    const ctx = chart.ctx;
+    const yScale = chart.scales.y;
+    if (!yScale) return;
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x, yScale.top);
+    ctx.lineTo(x, yScale.bottom);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgba(31, 58, 95, 0.45)";
+    ctx.setLineDash([3, 3]);
+    ctx.stroke();
+    ctx.restore();
+  }
+};
+
+const HOVER_INTERACTION = { mode: "index", intersect: false, axis: "x" };
 
 function fmtPct(v) {
   if (v == null) return "&mdash;";
@@ -286,12 +310,22 @@ function renderCurve(snap) {
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.parsed.y.toFixed(2) + "%" } } },
+      interaction: HOVER_INTERACTION,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: ctx => ctx[0].label + " tenor",
+            label: ctx => ctx.parsed.y.toFixed(2) + "%"
+          }
+        }
+      },
       scales: {
         y: { ticks: { callback: v => v + "%" }, grid: { color: "#eee" } },
         x: { grid: { display: false } }
       }
-    }
+    },
+    plugins: [crosshairPlugin]
   });
 }
 
@@ -301,9 +335,8 @@ function renderTrend(ustHist, sofrHist) {
     const d = o.date; // MM/DD/YYYY
     yMap.set(d, {
       y30: o.yields["30 Yr"] ?? null,
-      y10: o.yields["10 Yr"] ?? null,
       y5:  o.yields["5 Yr"]  ?? null,
-      y2:  o.yields["2 Yr"]  ?? null,
+      y1:  o.yields["1 Yr"]  ?? null,
     });
   }
   const sofrMap = new Map();
@@ -327,9 +360,8 @@ function renderTrend(ustHist, sofrHist) {
   const trimmed = allDates.slice(-260);
 
   const y30 = trimmed.map(d => yMap.get(d)?.y30 ?? null);
-  const y10 = trimmed.map(d => yMap.get(d)?.y10 ?? null);
   const y5  = trimmed.map(d => yMap.get(d)?.y5  ?? null);
-  const y2  = trimmed.map(d => yMap.get(d)?.y2  ?? null);
+  const y1  = trimmed.map(d => yMap.get(d)?.y1  ?? null);
   const sofr = trimmed.map(d => sofrMap.get(d) ?? null);
 
   new Chart(document.getElementById("trend"), {
@@ -338,23 +370,29 @@ function renderTrend(ustHist, sofrHist) {
       labels: trimmed,
       datasets: [
         { label: "30 Yr",    data: y30,  borderColor: "#a02929", borderWidth: 1.5, pointRadius: 0, tension: 0.1, spanGaps: true },
-        { label: "10 Yr",    data: y10,  borderColor: "#1f3a5f", borderWidth: 1.5, pointRadius: 0, tension: 0.1, spanGaps: true },
         { label: "5 Yr",     data: y5,   borderColor: "#15803d", borderWidth: 1.5, pointRadius: 0, tension: 0.1, spanGaps: true },
-        { label: "2 Yr",     data: y2,   borderColor: "#b45309", borderWidth: 1.5, pointRadius: 0, tension: 0.1, borderDash: [4,3], spanGaps: true },
-        { label: "O/N SOFR", data: sofr, borderColor: "#7c3aed", borderWidth: 1.5, pointRadius: 0, tension: 0.1, borderDash: [1,3], spanGaps: true },
+        { label: "1 Yr",     data: y1,   borderColor: "#3b82f6", borderWidth: 1.5, pointRadius: 0, tension: 0.1, spanGaps: true },
+        { label: "O/N SOFR", data: sofr, borderColor: "#7c3aed", borderWidth: 1.5, pointRadius: 0, tension: 0.1, borderDash: [2,3], spanGaps: true },
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
+      interaction: HOVER_INTERACTION,
       plugins: {
         legend: { display: true, position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } },
-        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ": " + (ctx.parsed.y != null ? ctx.parsed.y.toFixed(2) + "%" : "n/a") } }
+        tooltip: {
+          callbacks: {
+            title: ctx => ctx[0].label,
+            label: ctx => ctx.dataset.label + ": " + (ctx.parsed.y != null ? ctx.parsed.y.toFixed(2) + "%" : "n/a")
+          }
+        }
       },
       scales: {
         x: { ticks: { maxTicksLimit: 6, font: { size: 10 } }, grid: { display: false } },
         y: { ticks: { callback: v => v + "%" }, grid: { color: "#eee" } }
       }
-    }
+    },
+    plugins: [crosshairPlugin]
   });
 }
 
@@ -437,10 +475,12 @@ function renderUstHistory(range) {
     data: { labels, datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
+      interaction: HOVER_INTERACTION,
       plugins: {
         legend: { display: true, position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } },
         tooltip: {
           callbacks: {
+            title: ctx => ctx[0].label,
             label: ctx => ctx.dataset.label + ": " + (ctx.parsed.y != null ? ctx.parsed.y.toFixed(2) + "%" : "n/a")
           }
         }
@@ -449,7 +489,8 @@ function renderUstHistory(range) {
         x: { ticks: { maxTicksLimit: 6, font: { size: 10 } }, grid: { display: false } },
         y: { ticks: { callback: v => v + "%" }, grid: { color: "#eee" } }
       }
-    }
+    },
+    plugins: [crosshairPlugin]
   });
 }
 
@@ -513,6 +554,7 @@ function renderFedHistory(fedHistory, currentMeeting) {
     data: { labels, datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
+      interaction: HOVER_INTERACTION,
       plugins: {
         legend: { display: true, position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } },
         tooltip: { callbacks: {
@@ -541,7 +583,8 @@ function renderFedHistory(fedHistory, currentMeeting) {
           grid: { color: "#eee" }
         }
       }
-    }
+    },
+    plugins: [crosshairPlugin]
   });
 }
 
