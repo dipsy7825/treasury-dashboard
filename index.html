@@ -65,6 +65,15 @@
   .ft a { color: #888; }
   .empty { background: #fffaf0; border: 0.5px solid #fde68a; border-radius: 6px;
     padding: 12px; margin-bottom: 12px; font-size: 13px; font-family: Georgia, serif; color: #92400e; }
+  .section-header { display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+  .section-header .stitle { margin-bottom: 0; }
+  .range-tabs { display: inline-flex; gap: 2px; font-family: Georgia, serif; }
+  .range-tabs button { font-family: Georgia, serif; font-size: 10px; padding: 3px 8px;
+    background: transparent; border: 0.5px solid #e0ddd5; border-radius: 3px; cursor: pointer;
+    color: #666; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.15s; }
+  .range-tabs button:hover { background: #f5f3ec; }
+  .range-tabs button.active { background: #1f3a5f; color: white; border-color: #1f3a5f; }
   @media (max-width: 520px) {
     body { padding: 8px; }
     header { margin-bottom: 10px; padding-bottom: 6px; }
@@ -72,6 +81,7 @@
     .ts { font-size: 10.5px; }
     .section { padding: 9px 10px; margin-bottom: 8px; border-radius: 5px; }
     .stitle { font-size: 10px; margin-bottom: 6px; letter-spacing: 0.5px; }
+    .range-tabs button { font-size: 9px; padding: 3px 5px; }
     th { font-size: 9px; padding: 4px 2px 5px; letter-spacing: 0.3px; }
     td { font-size: 11.5px; padding: 5px 2px; }
     td:first-child { font-size: 12px; }
@@ -109,6 +119,23 @@
     </tr></thead>
     <tbody id="ust-body"></tbody>
   </table>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="stitle">Treasury yields &mdash; historical</div>
+    <div class="range-tabs" id="ust-hist-range">
+      <button data-range="1M">1M</button>
+      <button data-range="3M">3M</button>
+      <button data-range="6M">6M</button>
+      <button data-range="YTD">YTD</button>
+      <button data-range="1Y" class="active">1Y</button>
+      <button data-range="2Y">2Y</button>
+    </div>
+  </div>
+  <div style="position: relative; width: 100%; height: 240px;">
+    <canvas id="ustHistory" role="img" aria-label="Historical Treasury yields by tenor with selectable time range">Treasury yields over time.</canvas>
+  </div>
 </div>
 
 <div class="section">
@@ -327,6 +354,107 @@ async function loadJSON(path) {
   return r.json();
 }
 
+const HIST_TENORS = [
+  { name: "1 Yr",  color: "#3b82f6" },
+  { name: "2 Yr",  color: "#b45309" },
+  { name: "5 Yr",  color: "#15803d" },
+  { name: "10 Yr", color: "#1f3a5f" },
+  { name: "30 Yr", color: "#a02929" },
+];
+
+let ustHistChart = null;
+let ustHistData = null;
+
+function parseDateMDY(s) {
+  const parts = String(s || "").split("/").map(Number);
+  if (parts.length !== 3) return null;
+  return new Date(parts[2], parts[0] - 1, parts[1]);
+}
+
+function rangeStart(range, latestDate) {
+  const d = new Date(latestDate);
+  switch (range) {
+    case "1M":  d.setDate(d.getDate() - 30); return d;
+    case "3M":  d.setDate(d.getDate() - 91); return d;
+    case "6M":  d.setDate(d.getDate() - 183); return d;
+    case "YTD": return new Date(latestDate.getFullYear(), 0, 1);
+    case "1Y":  d.setDate(d.getDate() - 365); return d;
+    case "2Y":  d.setDate(d.getDate() - 730); return d;
+    default:    d.setDate(d.getDate() - 365); return d;
+  }
+}
+
+function renderUstHistory(range) {
+  if (!ustHistData || ustHistData.length === 0) return;
+  const last = ustHistData[ustHistData.length - 1];
+  const latestDate = parseDateMDY(last.date);
+  if (!latestDate) return;
+  const start = rangeStart(range, latestDate);
+  const filtered = ustHistData.filter(o => {
+    const dt = parseDateMDY(o.date);
+    return dt && dt >= start;
+  });
+
+  const labels = filtered.map(o => o.date);
+  const datasets = HIST_TENORS.map(t => ({
+    label: t.name,
+    data: filtered.map(o => (o.yields && o.yields[t.name] != null) ? o.yields[t.name] : null),
+    borderColor: t.color,
+    backgroundColor: t.color,
+    borderWidth: 1.5,
+    pointRadius: 0,
+    tension: 0.1,
+    spanGaps: true,
+  }));
+
+  if (ustHistChart) {
+    ustHistChart.data.labels = labels;
+    ustHistChart.data.datasets.forEach((ds, i) => {
+      ds.data = datasets[i].data;
+    });
+    ustHistChart.data.datasets = ustHistChart.data.datasets.map((ds, i) => ({
+      ...ds,
+      data: datasets[i].data,
+      label: datasets[i].label,
+      borderColor: datasets[i].borderColor,
+      backgroundColor: datasets[i].backgroundColor,
+    }));
+    ustHistChart.update("none");
+    return;
+  }
+
+  ustHistChart = new Chart(document.getElementById("ustHistory"), {
+    type: "line",
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: true, position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ctx.dataset.label + ": " + (ctx.parsed.y != null ? ctx.parsed.y.toFixed(2) + "%" : "n/a")
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { maxTicksLimit: 6, font: { size: 10 } }, grid: { display: false } },
+        y: { ticks: { callback: v => v + "%" }, grid: { color: "#eee" } }
+      }
+    }
+  });
+}
+
+function setupUstHistoryControls() {
+  const tabs = document.querySelectorAll("#ust-hist-range button");
+  tabs.forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabs.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderUstHistory(btn.dataset.range);
+    });
+  });
+}
+
 function renderFedHistory(fedHistory, currentMeeting) {
   if (!fedHistory || !Array.isArray(fedHistory) || !currentMeeting) return;
   const filtered = fedHistory.filter(h => h && h.next_meeting === currentMeeting);
@@ -437,6 +565,9 @@ async function main() {
   renderFOMC(fed);
   renderFedHistory(fedHistory || [], fed && fed.next_meeting);
   renderCurve(yields);
+  ustHistData = history || [];
+  renderUstHistory("1Y");
+  setupUstHistoryControls();
   renderTrend(history || [], sofrHist || []);
 }
 
