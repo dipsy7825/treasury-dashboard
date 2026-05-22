@@ -176,12 +176,12 @@
   </div>
 </div>
 
-<div class="section" id="fed-history-section" style="display: none;">
-  <div class="stitle">FOMC odds &mdash; change over time</div>
+<div class="section" id="rate-history-section" style="display: none;">
+  <div class="stitle">FOMC actions &mdash; past 12 months</div>
   <div style="position: relative; width: 100%; height: 220px;">
-    <canvas id="fedOdds" role="img" aria-label="FOMC probability change over time for each outcome">FOMC probability change over time.</canvas>
+    <canvas id="rateHistory" role="img" aria-label="Bar chart of past FOMC rate changes over the last 12 months">FOMC actions, past 12 months.</canvas>
   </div>
-  <div class="src">Source: Polymarket &middot; sampled every 30 min during US market hours</div>
+  <div class="src">Source: FRED DFEDTARU (Federal Funds Target Range &mdash; Upper Limit)</div>
 </div>
 
 <div class="ft">
@@ -460,6 +460,69 @@ function rangeStart(range, latestDate) {
   }
 }
 
+function renderRateHistory(rateHist) {
+  if (!rateHist || !Array.isArray(rateHist.decisions) || rateHist.decisions.length === 0) return;
+  const decisions = rateHist.decisions.slice();
+  // Already sorted by date in script, but enforce
+  decisions.sort((a, b) => a.date.localeCompare(b.date));
+
+  const labels = decisions.map(d => {
+    const dt = new Date(d.date + "T00:00:00");
+    return dt.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  });
+  const values = decisions.map(d => d.change_bp);
+  const colors = values.map(bp =>
+    bp > 0 ? "#b91c1c" : (bp < 0 ? "#15803d" : "#999")
+  );
+
+  document.getElementById("rate-history-section").style.display = "";
+  new Chart(document.getElementById("rateHistory"), {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderColor: colors,
+        borderWidth: 0,
+        barPercentage: 0.7,
+        categoryPercentage: 0.85,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: HOVER_INTERACTION,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: ctx => {
+              const dt = new Date(decisions[ctx[0].dataIndex].date + "T00:00:00");
+              return dt.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+            },
+            label: ctx => {
+              const d = decisions[ctx.dataIndex];
+              const tgt = `${d.lower_target.toFixed(2)}–${d.upper_target.toFixed(2)}%`;
+              return [`${d.label}`, `Target range: ${tgt}`];
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 45 },
+          grid: { display: false }
+        },
+        y: {
+          ticks: { callback: v => (v > 0 ? "+" : "") + v + " bp", font: { size: 10 } },
+          grid: { color: "#eee" }
+        }
+      }
+    },
+    plugins: [crosshairPlugin]
+  });
+}
+
 function renderFedHistory(fedHistory, currentMeeting) {
   if (!fedHistory || !Array.isArray(fedHistory) || !currentMeeting) return;
   const filtered = fedHistory.filter(h => h && h.next_meeting === currentMeeting);
@@ -544,15 +607,15 @@ function renderFedHistory(fedHistory, currentMeeting) {
 }
 
 async function main() {
-  let yields, history, sofr, sofrHist, fed, fedHistory;
+  let yields, history, sofr, sofrHist, fed, rateHist;
   try {
-    [yields, history, sofr, sofrHist, fed, fedHistory] = await Promise.all([
+    [yields, history, sofr, sofrHist, fed, rateHist] = await Promise.all([
       loadJSON("data/yields.json"),
       loadJSON("data/history.json"),
       loadJSON("data/sofr.json"),
       loadJSON("data/sofr_history.json"),
       loadJSON("data/fed.json"),
-      loadJSON("data/fed_history.json").catch(() => []),
+      loadJSON("data/rate_history.json").catch(() => null),
     ]);
   } catch (e) {
     document.getElementById("ts").textContent = "Data unavailable";
@@ -570,7 +633,7 @@ async function main() {
   renderTable(yields.table || [], "ust-body", "tenor");
   renderTable(sofr.table || [], "sofr-body", "rate");
   renderFOMC(fed);
-  renderFedHistory(fedHistory || [], fed && fed.next_meeting);
+  renderRateHistory(rateHist);
   renderCurve(yields);
   trendUstData = history || [];
   trendSofrData = sofrHist || [];
