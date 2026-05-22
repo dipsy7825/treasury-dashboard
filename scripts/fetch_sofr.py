@@ -128,7 +128,7 @@ def main():
         ])
 
     table = [{
-        "rate": "O/N SOFR",
+        "rate": "O/N",
         "current": latest["sofr"],
         "change_bp": round((latest["sofr"] - prev["sofr"]) * 100, 1) if prev else None,
         "avg_1w":  window_avg(w1_start, latest_dt),
@@ -138,9 +138,9 @@ def main():
     }]
 
     for label, key in [
-        ("30D Avg SOFR", "30d"),
-        ("90D Avg SOFR", "90d"),
-        ("180D Avg SOFR", "180d"),
+        ("30D Avg", "30d"),
+        ("90D Avg", "90d"),
+        ("180D Avg", "180d"),
     ]:
         cur = ai_latest.get(key)
         prv = ai_prev.get(key)
