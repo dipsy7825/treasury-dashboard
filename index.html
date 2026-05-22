@@ -122,23 +122,6 @@
 </div>
 
 <div class="section">
-  <div class="section-header">
-    <div class="stitle">Treasury yields &mdash; historical</div>
-    <div class="range-tabs" id="ust-hist-range">
-      <button data-range="1M">1M</button>
-      <button data-range="3M">3M</button>
-      <button data-range="6M">6M</button>
-      <button data-range="YTD">YTD</button>
-      <button data-range="1Y" class="active">1Y</button>
-      <button data-range="2Y">2Y</button>
-    </div>
-  </div>
-  <div style="position: relative; width: 100%; height: 240px;">
-    <canvas id="ustHistory" role="img" aria-label="Historical Treasury yields by tenor with selectable time range">Treasury yields over time.</canvas>
-  </div>
-</div>
-
-<div class="section">
   <div class="stitle">SOFR (NY Fed)</div>
   <table>
     <thead><tr>
@@ -169,9 +152,19 @@
 </div>
 
 <div class="section">
-  <div class="stitle">Treasury yields &amp; SOFR &mdash; trailing one year</div>
+  <div class="section-header">
+    <div class="stitle">Treasury yields &amp; SOFR</div>
+    <div class="range-tabs" id="trend-range">
+      <button data-range="1M">1M</button>
+      <button data-range="3M">3M</button>
+      <button data-range="6M">6M</button>
+      <button data-range="YTD">YTD</button>
+      <button data-range="1Y" class="active">1Y</button>
+      <button data-range="2Y">2Y</button>
+    </div>
+  </div>
   <div style="position: relative; width: 100%; height: 260px;">
-    <canvas id="trend" role="img" aria-label="Trailing one year trend of 1Y, 5Y, 30Y Treasury yields and overnight SOFR">Trailing year trend.</canvas>
+    <canvas id="trend" role="img" aria-label="Historical 1Y, 5Y, 30Y Treasury yields and overnight SOFR with selectable time range">Treasury yields and SOFR history.</canvas>
   </div>
 </div>
 
@@ -329,52 +322,70 @@ function renderCurve(snap) {
   });
 }
 
-function renderTrend(ustHist, sofrHist) {
+function renderTrend(range) {
+  range = range || "1Y";
+  const ustHist = trendUstData || [];
+  const sofrHist = trendSofrData || [];
+  if (ustHist.length === 0 && sofrHist.length === 0) return;
+
+  // Determine latest date across both series
+  let latestDate = null;
+  if (ustHist.length) {
+    const d = parseDateMDY(ustHist[ustHist.length - 1].date);
+    if (d) latestDate = d;
+  }
+  if (sofrHist.length) {
+    const d = parseDateYMD(sofrHist[sofrHist.length - 1].date);
+    if (d && (!latestDate || d > latestDate)) latestDate = d;
+  }
+  if (!latestDate) return;
+  const start = rangeStart(range, latestDate);
+
   const yMap = new Map();
   for (const o of ustHist) {
-    const d = o.date; // MM/DD/YYYY
-    yMap.set(d, {
-      y30: o.yields["30 Yr"] ?? null,
-      y5:  o.yields["5 Yr"]  ?? null,
-      y1:  o.yields["1 Yr"]  ?? null,
+    const dt = parseDateMDY(o.date);
+    if (!dt || dt < start) continue;
+    yMap.set(o.date, {
+      y30: o.yields && o.yields["30 Yr"] != null ? o.yields["30 Yr"] : null,
+      y5:  o.yields && o.yields["5 Yr"]  != null ? o.yields["5 Yr"]  : null,
+      y1:  o.yields && o.yields["1 Yr"]  != null ? o.yields["1 Yr"]  : null,
     });
   }
   const sofrMap = new Map();
-  for (const o of (sofrHist || [])) {
-    // sofr_history uses YYYY-MM-DD; convert to MM/DD/YYYY to match Treasury
-    const parts = (o.date || "").split("-");
-    if (parts.length === 3) {
-      const key = `${parts[1]}/${parts[2]}/${parts[0]}`;
-      sofrMap.set(key, o.sofr);
-    }
+  for (const o of sofrHist) {
+    const dt = parseDateYMD(o.date);
+    if (!dt || dt < start) continue;
+    // Convert YYYY-MM-DD → MM/DD/YYYY to share label space with Treasury data
+    const parts = o.date.split("-");
+    const key = `${parts[1]}/${parts[2]}/${parts[0]}`;
+    sofrMap.set(key, o.sofr);
   }
 
-  // Build unified series sorted by date
   const allDates = Array.from(new Set([...yMap.keys(), ...sofrMap.keys()]));
-  allDates.sort((a, b) => {
-    const [am, ad, ay] = a.split("/").map(Number);
-    const [bm, bd, by] = b.split("/").map(Number);
-    return new Date(ay, am - 1, ad) - new Date(by, bm - 1, bd);
-  });
-  // Trim to last 252 observations
-  const trimmed = allDates.slice(-260);
+  allDates.sort((a, b) => parseDateMDY(a) - parseDateMDY(b));
 
-  const y30 = trimmed.map(d => yMap.get(d)?.y30 ?? null);
-  const y5  = trimmed.map(d => yMap.get(d)?.y5  ?? null);
-  const y1  = trimmed.map(d => yMap.get(d)?.y1  ?? null);
-  const sofr = trimmed.map(d => sofrMap.get(d) ?? null);
+  const y30  = allDates.map(d => yMap.get(d)?.y30 ?? null);
+  const y5   = allDates.map(d => yMap.get(d)?.y5  ?? null);
+  const y1   = allDates.map(d => yMap.get(d)?.y1  ?? null);
+  const sofr = allDates.map(d => sofrMap.get(d) ?? null);
 
-  new Chart(document.getElementById("trend"), {
+  const datasets = [
+    { label: "30 Yr",    data: y30,  borderColor: "#a02929", borderWidth: 1.5, pointRadius: 0, tension: 0.1, spanGaps: true },
+    { label: "5 Yr",     data: y5,   borderColor: "#15803d", borderWidth: 1.5, pointRadius: 0, tension: 0.1, spanGaps: true },
+    { label: "1 Yr",     data: y1,   borderColor: "#3b82f6", borderWidth: 1.5, pointRadius: 0, tension: 0.1, spanGaps: true },
+    { label: "O/N SOFR", data: sofr, borderColor: "#7c3aed", borderWidth: 1.5, pointRadius: 0, tension: 0.1, borderDash: [2,3], spanGaps: true },
+  ];
+
+  if (trendChart) {
+    trendChart.data.labels = allDates;
+    trendChart.data.datasets.forEach((ds, i) => { ds.data = datasets[i].data; });
+    trendChart.update("none");
+    return;
+  }
+
+  trendChart = new Chart(document.getElementById("trend"), {
     type: "line",
-    data: {
-      labels: trimmed,
-      datasets: [
-        { label: "30 Yr",    data: y30,  borderColor: "#a02929", borderWidth: 1.5, pointRadius: 0, tension: 0.1, spanGaps: true },
-        { label: "5 Yr",     data: y5,   borderColor: "#15803d", borderWidth: 1.5, pointRadius: 0, tension: 0.1, spanGaps: true },
-        { label: "1 Yr",     data: y1,   borderColor: "#3b82f6", borderWidth: 1.5, pointRadius: 0, tension: 0.1, spanGaps: true },
-        { label: "O/N SOFR", data: sofr, borderColor: "#7c3aed", borderWidth: 1.5, pointRadius: 0, tension: 0.1, borderDash: [2,3], spanGaps: true },
-      ]
-    },
+    data: { labels: allDates, datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
       interaction: HOVER_INTERACTION,
@@ -396,26 +407,36 @@ function renderTrend(ustHist, sofrHist) {
   });
 }
 
+function setupTrendControls() {
+  const tabs = document.querySelectorAll("#trend-range button");
+  tabs.forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabs.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderTrend(btn.dataset.range);
+    });
+  });
+}
+
 async function loadJSON(path) {
   const r = await fetch(path + "?_=" + Date.now());
   return r.json();
 }
 
-const HIST_TENORS = [
-  { name: "1 Yr",  color: "#3b82f6" },
-  { name: "2 Yr",  color: "#b45309" },
-  { name: "5 Yr",  color: "#15803d" },
-  { name: "10 Yr", color: "#1f3a5f" },
-  { name: "30 Yr", color: "#a02929" },
-];
-
-let ustHistChart = null;
-let ustHistData = null;
+let trendChart = null;
+let trendUstData = null;
+let trendSofrData = null;
 
 function parseDateMDY(s) {
   const parts = String(s || "").split("/").map(Number);
   if (parts.length !== 3) return null;
   return new Date(parts[2], parts[0] - 1, parts[1]);
+}
+
+function parseDateYMD(s) {
+  const parts = String(s || "").split("-").map(Number);
+  if (parts.length !== 3) return null;
+  return new Date(parts[0], parts[1] - 1, parts[2]);
 }
 
 function rangeStart(range, latestDate) {
@@ -429,80 +450,6 @@ function rangeStart(range, latestDate) {
     case "2Y":  d.setDate(d.getDate() - 730); return d;
     default:    d.setDate(d.getDate() - 365); return d;
   }
-}
-
-function renderUstHistory(range) {
-  if (!ustHistData || ustHistData.length === 0) return;
-  const last = ustHistData[ustHistData.length - 1];
-  const latestDate = parseDateMDY(last.date);
-  if (!latestDate) return;
-  const start = rangeStart(range, latestDate);
-  const filtered = ustHistData.filter(o => {
-    const dt = parseDateMDY(o.date);
-    return dt && dt >= start;
-  });
-
-  const labels = filtered.map(o => o.date);
-  const datasets = HIST_TENORS.map(t => ({
-    label: t.name,
-    data: filtered.map(o => (o.yields && o.yields[t.name] != null) ? o.yields[t.name] : null),
-    borderColor: t.color,
-    backgroundColor: t.color,
-    borderWidth: 1.5,
-    pointRadius: 0,
-    tension: 0.1,
-    spanGaps: true,
-  }));
-
-  if (ustHistChart) {
-    ustHistChart.data.labels = labels;
-    ustHistChart.data.datasets.forEach((ds, i) => {
-      ds.data = datasets[i].data;
-    });
-    ustHistChart.data.datasets = ustHistChart.data.datasets.map((ds, i) => ({
-      ...ds,
-      data: datasets[i].data,
-      label: datasets[i].label,
-      borderColor: datasets[i].borderColor,
-      backgroundColor: datasets[i].backgroundColor,
-    }));
-    ustHistChart.update("none");
-    return;
-  }
-
-  ustHistChart = new Chart(document.getElementById("ustHistory"), {
-    type: "line",
-    data: { labels, datasets },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      interaction: HOVER_INTERACTION,
-      plugins: {
-        legend: { display: true, position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } },
-        tooltip: {
-          callbacks: {
-            title: ctx => ctx[0].label,
-            label: ctx => ctx.dataset.label + ": " + (ctx.parsed.y != null ? ctx.parsed.y.toFixed(2) + "%" : "n/a")
-          }
-        }
-      },
-      scales: {
-        x: { ticks: { maxTicksLimit: 6, font: { size: 10 } }, grid: { display: false } },
-        y: { ticks: { callback: v => v + "%" }, grid: { color: "#eee" } }
-      }
-    },
-    plugins: [crosshairPlugin]
-  });
-}
-
-function setupUstHistoryControls() {
-  const tabs = document.querySelectorAll("#ust-hist-range button");
-  tabs.forEach(btn => {
-    btn.addEventListener("click", () => {
-      tabs.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      renderUstHistory(btn.dataset.range);
-    });
-  });
 }
 
 function renderFedHistory(fedHistory, currentMeeting) {
@@ -617,10 +564,10 @@ async function main() {
   renderFOMC(fed);
   renderFedHistory(fedHistory || [], fed && fed.next_meeting);
   renderCurve(yields);
-  ustHistData = history || [];
-  renderUstHistory("1Y");
-  setupUstHistoryControls();
-  renderTrend(history || [], sofrHist || []);
+  trendUstData = history || [];
+  trendSofrData = sofrHist || [];
+  renderTrend("1Y");
+  setupTrendControls();
 }
 
 main();
