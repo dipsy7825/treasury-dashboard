@@ -14,10 +14,15 @@ import io
 import json
 import os
 import sys
+import time
 import urllib.request
 from datetime import datetime, timedelta
 
-FRED_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFEDTARU"
+# Try alternate URLs in order. The "downloaddata" path is more stable than "graph/fredgraph".
+FRED_URLS = [
+    "https://fred.stlouisfed.org/series/DFEDTARU/downloaddata/DFEDTARU.csv",
+    "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFEDTARU",
+]
 
 # FOMC decision-day dates (Day 2 of two-day meetings).
 # Source: federalreserve.gov/monetarypolicy/fomccalendars.htm
@@ -34,18 +39,58 @@ FOMC_DATES = [
 ]
 
 
-def fetch(url):
+def fetch(url, timeout=60):
     req = urllib.request.Request(url, headers={"User-Agent": "treasury-dashboard/1.0"})
-    with urllib.request.urlopen(req, timeout=30) as resp:
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read().decode("utf-8")
 
 
+def fetch_with_retry():
+    """Try each URL up to 3 times with backoff. Returns CSV text or None on total failure."""
+    last_err = None
+    for url in FRED_URLS:
+        for attempt in range(3):
+            try:
+                print(f"Fetching {url} (attempt {attempt + 1})")
+                return fetch(url, timeout=60)
+            except Exception as exc:
+                last_err = exc
+                print(f"  failed: {exc}", file=sys.stderr)
+                if attempt < 2:
+                    time.sleep(5 * (attempt + 1))
+    print(f"All FRED URLs failed. Last error: {last_err}", file=sys.stderr)
+    return None
+
+
+def write_snapshot(decisions, error_note=None):
+    """Always write data/rate_history.json so the workflow's git add doesn't fail."""
+    snapshot = {
+        "decisions": decisions,
+        "source": "https://fred.stlouisfed.org/series/DFEDTARU",
+        "fetched_at_utc": datetime.utcnow().isoformat() + "Z",
+    }
+    if error_note:
+        snapshot["error"] = error_note
+    os.makedirs("data", exist_ok=True)
+    with open("data/rate_history.json", "w") as f:
+        json.dump(snapshot, f, indent=2)
+
+
 def main():
-    try:
-        csv_text = fetch(FRED_URL)
-    except Exception as exc:
-        print(f"ERROR fetching FRED: {exc}", file=sys.stderr)
-        sys.exit(1)
+    csv_text = fetch_with_retry()
+    if csv_text is None:
+        # Write a placeholder so the workflow can continue.
+        # Don't overwrite a good existing file — read it first and preserve its decisions.
+        existing = []
+        try:
+            with open("data/rate_history.json") as f:
+                existing_data = json.load(f) or {}
+                existing = existing_data.get("decisions") or []
+        except (FileNotFoundError, json.JSONDecodeError):
+            pass
+        write_snapshot(existing, error_note="FRED fetch failed; preserving last successful data")
+        print(f"FRED unavailable. Preserved {len(existing)} existing decisions.", file=sys.stderr)
+        sys.exit(0)  # Exit success so workflow continues
 
     reader = csv.DictReader(io.StringIO(csv_text))
     rate_by_date = {}
@@ -110,16 +155,7 @@ def main():
             "label": label,
         })
 
-    snapshot = {
-        "decisions": decisions,
-        "source": "https://fred.stlouisfed.org/series/DFEDTARU",
-        "fetched_at_utc": datetime.utcnow().isoformat() + "Z",
-    }
-
-    os.makedirs("data", exist_ok=True)
-    with open("data/rate_history.json", "w") as f:
-        json.dump(snapshot, f, indent=2)
-
+    write_snapshot(decisions)
     print(f"Wrote {len(decisions)} FOMC decisions in trailing 12 months")
 
 
