@@ -1024,5 +1024,32 @@
         "value": 0.0015
       }
     ]
+  },
+  {
+    "timestamp": "2026-06-01T18:34:48.008616Z",
+    "next_meeting": "2026-06-17",
+    "event_slug": "fed-decision-in-june-825",
+    "probabilities": [
+      {
+        "label": "No change",
+        "value": 0.9835
+      },
+      {
+        "label": "25 bps decrease",
+        "value": 0.0075
+      },
+      {
+        "label": "25 bps increase",
+        "value": 0.0055
+      },
+      {
+        "label": "50+ bps decrease",
+        "value": 0.0045
+      },
+      {
+        "label": "50+ bps increase",
+        "value": 0.0015
+      }
+    ]
   }
 ]
