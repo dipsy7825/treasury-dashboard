@@ -3,28 +3,28 @@
   "probabilities": [
     {
       "label": "No change",
-      "value": 0.9825
+      "value": 0.9865
     },
     {
       "label": "25 bps decrease",
-      "value": 0.0085
-    },
-    {
-      "label": "50+ bps decrease",
-      "value": 0.0045
+      "value": 0.0055
     },
     {
       "label": "25 bps increase",
       "value": 0.0035
     },
     {
+      "label": "50+ bps decrease",
+      "value": 0.0025
+    },
+    {
       "label": "50+ bps increase",
-      "value": 0.0015
+      "value": 0.0005
     }
   ],
   "event_title": "Fed Decision in June?",
   "event_slug": "fed-decision-in-june-825",
   "source_url": "https://polymarket.com/event/fed-decision-in-june-825",
-  "fetched_at_utc": "2026-06-04T23:43:54.349635Z",
+  "fetched_at_utc": "2026-06-05T15:49:55.466204Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
