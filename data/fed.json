@@ -2,29 +2,41 @@
   "next_meeting": "2026-06-17",
   "probabilities": [
     {
-      "label": "No change",
-      "value": 0.9995
+      "label": "December Meeting",
+      "value": 0.23
     },
     {
-      "label": "25 bps decrease",
-      "value": 0.0005
+      "label": "October Meeting",
+      "value": 0.22
     },
     {
-      "label": "25 bps increase",
-      "value": 0.0005
+      "label": "September Meeting",
+      "value": 0.117
     },
     {
-      "label": "50+ bps decrease",
-      "value": 0.0005
+      "label": "July Meeting",
+      "value": 0.0235
     },
     {
-      "label": "50+ bps increase",
-      "value": 0.0005
+      "label": "June Meeting",
+      "value": 0.0
+    },
+    {
+      "label": "January Meeting",
+      "value": 0.0
+    },
+    {
+      "label": "April Meeting",
+      "value": 0.0
+    },
+    {
+      "label": "March Meeting",
+      "value": 0.0
     }
   ],
-  "event_title": "Fed Decision in June?",
-  "event_slug": "fed-decision-in-june-825",
-  "source_url": "https://polymarket.com/event/fed-decision-in-june-825",
-  "fetched_at_utc": "2026-06-17T19:21:30.469595Z",
+  "event_title": "Fed rate cut by...?",
+  "event_slug": "fed-rate-cut-by-629",
+  "source_url": "https://polymarket.com/event/fed-rate-cut-by-629",
+  "fetched_at_utc": "2026-06-17T21:27:37.006529Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
