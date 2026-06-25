@@ -7,7 +7,7 @@
     },
     {
       "label": "25 bps increase",
-      "value": 0.2025
+      "value": 0.1995
     },
     {
       "label": "25 bps decrease",
@@ -25,6 +25,6 @@
   "event_title": "Fed Decision in July?",
   "event_slug": "fed-decision-in-july-181",
   "source_url": "https://polymarket.com/event/fed-decision-in-july-181",
-  "fetched_at_utc": "2026-06-25T15:37:30.353355Z",
+  "fetched_at_utc": "2026-06-25T18:05:50.286974Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
