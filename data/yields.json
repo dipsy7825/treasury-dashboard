@@ -1,60 +1,60 @@
 {
-  "latest_date": "07/08/2026",
-  "previous_date": "07/07/2026",
+  "latest_date": "07/10/2026",
+  "previous_date": "07/09/2026",
   "yields": {
-    "1 Mo": 3.67,
+    "1 Mo": 3.71,
     "1.5 Month": 3.74,
-    "2 Mo": 3.82,
-    "3 Mo": 3.87,
+    "2 Mo": 3.81,
+    "3 Mo": 3.85,
     "4 Mo": 3.94,
     "6 Mo": 3.99,
     "1 Yr": 4.06,
     "2 Yr": 4.21,
-    "3 Yr": 4.21,
-    "5 Yr": 4.31,
-    "7 Yr": 4.43,
+    "3 Yr": 4.22,
+    "5 Yr": 4.3,
+    "7 Yr": 4.42,
     "10 Yr": 4.56,
-    "20 Yr": 5.07,
+    "20 Yr": 5.08,
     "30 Yr": 5.06
   },
   "table": [
     {
       "tenor": "2 Yr",
       "current": 4.21,
-      "change_bp": 2.0,
-      "avg_1w": 4.168,
-      "avg_1m": 4.1338,
-      "avg_ytd": 3.7916,
-      "avg_52w": 3.7063
+      "change_bp": 5.0,
+      "avg_1w": 4.18,
+      "avg_1m": 4.1381,
+      "avg_ytd": 3.7976,
+      "avg_52w": 3.7088
     },
     {
       "tenor": "5 Yr",
-      "current": 4.31,
-      "change_bp": 4.0,
-      "avg_1w": 4.252,
-      "avg_1m": 4.221,
-      "avg_ytd": 3.9487,
-      "avg_52w": 3.8442
+      "current": 4.3,
+      "change_bp": 3.0,
+      "avg_1w": 4.272,
+      "avg_1m": 4.2219,
+      "avg_ytd": 3.9538,
+      "avg_52w": 3.8468
     },
     {
       "tenor": "10 Yr",
       "current": 4.56,
-      "change_bp": 1.0,
-      "avg_1w": 4.512,
-      "avg_1m": 4.4762,
-      "avg_ytd": 4.3195,
-      "avg_52w": 4.2502
+      "change_bp": 2.0,
+      "avg_1w": 4.538,
+      "avg_1m": 4.4767,
+      "avg_ytd": 4.323,
+      "avg_52w": 4.2516
     },
     {
       "tenor": "30 Yr",
       "current": 5.06,
       "change_bp": 1.0,
-      "avg_1w": 5.01,
-      "avg_1m": 4.9533,
-      "avg_ytd": 4.8947,
-      "avg_52w": 4.8383
+      "avg_1w": 5.042,
+      "avg_1m": 4.9567,
+      "avg_ytd": 4.8972,
+      "avg_52w": 4.8395
     }
   ],
-  "fetched_at_utc": "2026-07-08T22:30:44.546953Z",
+  "fetched_at_utc": "2026-07-10T22:31:00.614642Z",
   "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve&field_tdr_date_value=2026&page&_format=csv"
 }
