@@ -3,11 +3,11 @@
   "probabilities": [
     {
       "label": "No change",
-      "value": 0.8745
+      "value": 0.8775
     },
     {
       "label": "25 bps increase",
-      "value": 0.1235
+      "value": 0.1165
     },
     {
       "label": "50+ bps increase",
@@ -15,7 +15,7 @@
     },
     {
       "label": "25 bps decrease",
-      "value": 0.0035
+      "value": 0.0045
     },
     {
       "label": "50+ bps decrease",
@@ -25,6 +25,6 @@
   "event_title": "Fed Decision in July?",
   "event_slug": "fed-decision-in-july-181",
   "source_url": "https://polymarket.com/event/fed-decision-in-july-181",
-  "fetched_at_utc": "2026-07-21T16:27:08.312353Z",
+  "fetched_at_utc": "2026-07-21T17:52:49.590191Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
