@@ -2,29 +2,45 @@
   "next_meeting": "2026-07-29",
   "probabilities": [
     {
-      "label": "No change",
+      "label": "Pause\u2013Pause\u2013Pause",
       "value": 0.9995
     },
     {
-      "label": "50+ bps decrease",
+      "label": "Pause\u2013Pause\u2013Cut",
       "value": 0.0005
     },
     {
-      "label": "25 bps decrease",
+      "label": "Other",
       "value": 0.0005
     },
     {
-      "label": "25 bps increase",
-      "value": 0.0005
+      "label": "Cut\u2013Pause\u2013Pause",
+      "value": 0.0
     },
     {
-      "label": "50+ bps increase",
-      "value": 0.0005
+      "label": "Cut\u2013Pause\u2013Cut",
+      "value": 0.0
+    },
+    {
+      "label": "Cut\u2013Cut\u2013Pause",
+      "value": 0.0
+    },
+    {
+      "label": "Cut\u2013Cut\u2013Cut",
+      "value": 0.0
+    },
+    {
+      "label": "Pause\u2013Cut\u2013Pause",
+      "value": 0.0
+    },
+    {
+      "label": "Pause\u2013Cut\u2013Cut",
+      "value": 0.0
     }
   ],
-  "event_title": "Fed Decision in July?",
-  "event_slug": "fed-decision-in-july-181",
-  "source_url": "https://polymarket.com/event/fed-decision-in-july-181",
-  "fetched_at_utc": "2026-07-29T19:51:12.333950Z",
+  "event_title": "Fed decisions (Apr-Jul)",
+  "event_slug": "fed-decisions-apr-jul",
+  "source_url": "https://polymarket.com/event/fed-decisions-apr-jul",
+  "fetched_at_utc": "2026-07-29T20:47:34.159801Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
