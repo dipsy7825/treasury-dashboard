@@ -2,16 +2,16 @@
   "next_meeting": "2026-07-29",
   "probabilities": [
     {
+      "label": "Other",
+      "value": 0.525
+    },
+    {
       "label": "Pause\u2013Pause\u2013Pause",
-      "value": 0.9995
+      "value": 0.44
     },
     {
       "label": "Pause\u2013Pause\u2013Cut",
-      "value": 0.0005
-    },
-    {
-      "label": "Other",
-      "value": 0.0005
+      "value": 0.0185
     },
     {
       "label": "Cut\u2013Pause\u2013Pause",
@@ -38,9 +38,9 @@
       "value": 0.0
     }
   ],
-  "event_title": "Fed decisions (Apr-Jul)",
-  "event_slug": "fed-decisions-apr-jul",
-  "source_url": "https://polymarket.com/event/fed-decisions-apr-jul",
-  "fetched_at_utc": "2026-07-29T21:54:50.041764Z",
+  "event_title": "Fed decisions (Jun-Sep)",
+  "event_slug": "fed-decisions-jun-sep",
+  "source_url": "https://polymarket.com/event/fed-decisions-jun-sep",
+  "fetched_at_utc": "2026-07-29T22:55:59.664620Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
