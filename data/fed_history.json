@@ -1,32 +1,5 @@
 [
   {
-    "timestamp": "2026-05-27T22:55:32.945801Z",
-    "next_meeting": "2026-06-17",
-    "event_slug": "fed-decision-in-june-825",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.9745
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0135
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.0065
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0055
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0025
-      }
-    ]
-  },
-  {
     "timestamp": "2026-05-28T16:50:43.532466Z",
     "next_meeting": "2026-06-17",
     "event_slug": "fed-decision-in-june-825",
@@ -15177,6 +15150,49 @@
       {
         "label": "Pause\u2013Pause\u2013Cut",
         "value": 0.0105
+      },
+      {
+        "label": "Cut\u2013Pause\u2013Pause",
+        "value": 0.0
+      },
+      {
+        "label": "Cut\u2013Pause\u2013Cut",
+        "value": 0.0
+      },
+      {
+        "label": "Cut\u2013Cut\u2013Pause",
+        "value": 0.0
+      },
+      {
+        "label": "Cut\u2013Cut\u2013Cut",
+        "value": 0.0
+      },
+      {
+        "label": "Pause\u2013Cut\u2013Pause",
+        "value": 0.0
+      },
+      {
+        "label": "Pause\u2013Cut\u2013Cut",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-08-26T13:49:55.858082Z",
+    "next_meeting": "2026-09-16",
+    "event_slug": "fed-decisions-jun-sep",
+    "probabilities": [
+      {
+        "label": "Pause\u2013Pause\u2013Pause",
+        "value": 0.66
+      },
+      {
+        "label": "Other",
+        "value": 0.35
+      },
+      {
+        "label": "Pause\u2013Pause\u2013Cut",
+        "value": 0.01
       },
       {
         "label": "Cut\u2013Pause\u2013Pause",
