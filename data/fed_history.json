@@ -1,59 +1,5 @@
 [
   {
-    "timestamp": "2026-06-03T23:16:52.455526Z",
-    "next_meeting": "2026-06-17",
-    "event_slug": "fed-decision-in-june-825",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.9835
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0085
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.0055
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0045
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0015
-      }
-    ]
-  },
-  {
-    "timestamp": "2026-06-04T16:18:33.910153Z",
-    "next_meeting": "2026-06-17",
-    "event_slug": "fed-decision-in-june-825",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.9825
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0075
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.0045
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0045
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0015
-      }
-    ]
-  },
-  {
     "timestamp": "2026-06-04T18:33:24.868820Z",
     "next_meeting": "2026-06-17",
     "event_slug": "fed-decision-in-june-825",
@@ -15277,6 +15223,49 @@
       {
         "label": "Pause\u2013Pause\u2013Cut",
         "value": 0.0065
+      },
+      {
+        "label": "Cut\u2013Pause\u2013Pause",
+        "value": 0.0
+      },
+      {
+        "label": "Cut\u2013Pause\u2013Cut",
+        "value": 0.0
+      },
+      {
+        "label": "Cut\u2013Cut\u2013Pause",
+        "value": 0.0
+      },
+      {
+        "label": "Cut\u2013Cut\u2013Cut",
+        "value": 0.0
+      },
+      {
+        "label": "Pause\u2013Cut\u2013Pause",
+        "value": 0.0
+      },
+      {
+        "label": "Pause\u2013Cut\u2013Cut",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-09-02T16:56:54.310735Z",
+    "next_meeting": "2026-09-16",
+    "event_slug": "fed-decisions-jun-sep",
+    "probabilities": [
+      {
+        "label": "Other",
+        "value": 0.575
+      },
+      {
+        "label": "Pause\u2013Pause\u2013Pause",
+        "value": 0.415
+      },
+      {
+        "label": "Pause\u2013Pause\u2013Cut",
+        "value": 0.006
       },
       {
         "label": "Cut\u2013Pause\u2013Pause",
