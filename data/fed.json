@@ -3,15 +3,15 @@
   "probabilities": [
     {
       "label": "Other",
-      "value": 0.645
+      "value": 0.655
     },
     {
       "label": "Pause\u2013Pause\u2013Pause",
-      "value": 0.34
+      "value": 0.345
     },
     {
       "label": "Pause\u2013Pause\u2013Cut",
-      "value": 0.005
+      "value": 0.0045
     },
     {
       "label": "Cut\u2013Pause\u2013Pause",
@@ -41,6 +41,6 @@
   "event_title": "Fed decisions (Jun-Sep)",
   "event_slug": "fed-decisions-jun-sep",
   "source_url": "https://polymarket.com/event/fed-decisions-jun-sep",
-  "fetched_at_utc": "2026-09-10T19:25:57.314849Z",
+  "fetched_at_utc": "2026-09-10T21:44:17.429262Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
