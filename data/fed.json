@@ -7,7 +7,7 @@
     },
     {
       "label": "Pause\u2013Pause\u2013Pause",
-      "value": 0.17
+      "value": 0.175
     },
     {
       "label": "Pause\u2013Pause\u2013Cut",
@@ -41,6 +41,6 @@
   "event_title": "Fed decisions (Jun-Sep)",
   "event_slug": "fed-decisions-jun-sep",
   "source_url": "https://polymarket.com/event/fed-decisions-jun-sep",
-  "fetched_at_utc": "2026-09-11T19:23:09.321126Z",
+  "fetched_at_utc": "2026-09-11T21:49:05.559232Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
