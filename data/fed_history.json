@@ -15702,5 +15702,48 @@
         "value": 0.0
       }
     ]
+  },
+  {
+    "timestamp": "2026-09-11T23:47:44.357872Z",
+    "next_meeting": "2026-09-16",
+    "event_slug": "fed-decisions-jun-sep",
+    "probabilities": [
+      {
+        "label": "Other",
+        "value": 0.81
+      },
+      {
+        "label": "Pause\u2013Pause\u2013Pause",
+        "value": 0.185
+      },
+      {
+        "label": "Pause\u2013Pause\u2013Cut",
+        "value": 0.004
+      },
+      {
+        "label": "Cut\u2013Pause\u2013Pause",
+        "value": 0.0
+      },
+      {
+        "label": "Cut\u2013Pause\u2013Cut",
+        "value": 0.0
+      },
+      {
+        "label": "Cut\u2013Cut\u2013Pause",
+        "value": 0.0
+      },
+      {
+        "label": "Cut\u2013Cut\u2013Cut",
+        "value": 0.0
+      },
+      {
+        "label": "Pause\u2013Cut\u2013Pause",
+        "value": 0.0
+      },
+      {
+        "label": "Pause\u2013Cut\u2013Cut",
+        "value": 0.0
+      }
+    ]
   }
 ]
