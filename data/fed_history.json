@@ -1,32 +1,5 @@
 [
   {
-    "timestamp": "2026-06-18T18:40:30.128475Z",
-    "next_meeting": "2026-07-29",
-    "event_slug": "fed-decision-in-july-181",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.765
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.2215
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0135
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0065
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0045
-      }
-    ]
-  },
-  {
     "timestamp": "2026-06-18T21:20:52.464198Z",
     "next_meeting": "2026-07-29",
     "event_slug": "fed-decision-in-july-181",
@@ -15722,6 +15695,33 @@
       },
       {
         "label": "Pause\u2013Cut\u2013Cut",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-09-16T20:18:51.536854Z",
+    "next_meeting": "2026-09-16",
+    "event_slug": "fed-decision-in-september-762",
+    "probabilities": [
+      {
+        "label": "25 bps increase",
+        "value": 0.9995
+      },
+      {
+        "label": "50+ bps decrease",
+        "value": 0.0
+      },
+      {
+        "label": "25 bps decrease",
+        "value": 0.0
+      },
+      {
+        "label": "No change",
+        "value": 0.0
+      },
+      {
+        "label": "50+ bps increase",
         "value": 0.0
       }
     ]

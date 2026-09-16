@@ -2,45 +2,29 @@
   "next_meeting": "2026-09-16",
   "probabilities": [
     {
-      "label": "Other",
-      "value": 0.87
+      "label": "25 bps increase",
+      "value": 0.9995
     },
     {
-      "label": "Pause\u2013Pause\u2013Pause",
-      "value": 0.135
-    },
-    {
-      "label": "Pause\u2013Pause\u2013Cut",
-      "value": 0.002
-    },
-    {
-      "label": "Cut\u2013Pause\u2013Pause",
+      "label": "50+ bps decrease",
       "value": 0.0
     },
     {
-      "label": "Cut\u2013Pause\u2013Cut",
+      "label": "25 bps decrease",
       "value": 0.0
     },
     {
-      "label": "Cut\u2013Cut\u2013Pause",
+      "label": "No change",
       "value": 0.0
     },
     {
-      "label": "Cut\u2013Cut\u2013Cut",
-      "value": 0.0
-    },
-    {
-      "label": "Pause\u2013Cut\u2013Pause",
-      "value": 0.0
-    },
-    {
-      "label": "Pause\u2013Cut\u2013Cut",
+      "label": "50+ bps increase",
       "value": 0.0
     }
   ],
-  "event_title": "Fed decisions (Jun-Sep)",
-  "event_slug": "fed-decisions-jun-sep",
-  "source_url": "https://polymarket.com/event/fed-decisions-jun-sep",
-  "fetched_at_utc": "2026-09-16T17:25:19.408181Z",
+  "event_title": "Fed Decision in September?",
+  "event_slug": "fed-decision-in-september-762",
+  "source_url": "https://polymarket.com/event/fed-decision-in-september-762",
+  "fetched_at_utc": "2026-09-16T20:18:51.536854Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
