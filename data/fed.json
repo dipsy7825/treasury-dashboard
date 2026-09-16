@@ -2,29 +2,45 @@
   "next_meeting": "2026-09-16",
   "probabilities": [
     {
-      "label": "25 bps increase",
-      "value": 0.9995
+      "label": "Below 4.49%",
+      "value": 0.44
     },
     {
-      "label": "50+ bps decrease",
-      "value": 0.0
+      "label": "Below 4.52%",
+      "value": 0.365
     },
     {
-      "label": "25 bps decrease",
-      "value": 0.0
+      "label": "Below 4.46%",
+      "value": 0.245
     },
     {
-      "label": "No change",
-      "value": 0.0
+      "label": "Below 4.43%",
+      "value": 0.195
     },
     {
-      "label": "50+ bps increase",
-      "value": 0.0
+      "label": "Below 4.40%",
+      "value": 0.14
+    },
+    {
+      "label": "Below 4.37%",
+      "value": 0.13
+    },
+    {
+      "label": "Below 4.32%",
+      "value": 0.08
+    },
+    {
+      "label": "Below 4.27%",
+      "value": 0.07
+    },
+    {
+      "label": "Below 4.20%",
+      "value": 0.029
     }
   ],
-  "event_title": "Fed Decision in September?",
-  "event_slug": "fed-decision-in-september-762",
-  "source_url": "https://polymarket.com/event/fed-decision-in-september-762",
-  "fetched_at_utc": "2026-09-16T20:18:51.536854Z",
+  "event_title": "How low will 5-year Treasury yield get in September?",
+  "event_slug": "how-low-will-5-year-treasury-yield-get-in-september",
+  "source_url": "https://polymarket.com/event/how-low-will-5-year-treasury-yield-get-in-september",
+  "fetched_at_utc": "2026-09-16T23:06:56.771106Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }

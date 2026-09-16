@@ -1,32 +1,5 @@
 [
   {
-    "timestamp": "2026-06-18T21:20:52.464198Z",
-    "next_meeting": "2026-07-29",
-    "event_slug": "fed-decision-in-july-181",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.745
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.2405
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0135
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0065
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.005
-      }
-    ]
-  },
-  {
     "timestamp": "2026-06-18T23:16:05.492786Z",
     "next_meeting": "2026-07-29",
     "event_slug": "fed-decision-in-july-181",
@@ -15723,6 +15696,49 @@
       {
         "label": "50+ bps increase",
         "value": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-09-16T23:06:56.771106Z",
+    "next_meeting": "2026-09-16",
+    "event_slug": "how-low-will-5-year-treasury-yield-get-in-september",
+    "probabilities": [
+      {
+        "label": "Below 4.49%",
+        "value": 0.44
+      },
+      {
+        "label": "Below 4.52%",
+        "value": 0.365
+      },
+      {
+        "label": "Below 4.46%",
+        "value": 0.245
+      },
+      {
+        "label": "Below 4.43%",
+        "value": 0.195
+      },
+      {
+        "label": "Below 4.40%",
+        "value": 0.14
+      },
+      {
+        "label": "Below 4.37%",
+        "value": 0.13
+      },
+      {
+        "label": "Below 4.32%",
+        "value": 0.08
+      },
+      {
+        "label": "Below 4.27%",
+        "value": 0.07
+      },
+      {
+        "label": "Below 4.20%",
+        "value": 0.029
       }
     ]
   }
