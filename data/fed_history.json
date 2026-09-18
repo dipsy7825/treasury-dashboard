@@ -15741,5 +15741,32 @@
         "value": 0.0035
       }
     ]
+  },
+  {
+    "timestamp": "2026-09-18T23:48:06.091395Z",
+    "next_meeting": "2026-10-28",
+    "event_slug": "fed-decision-in-october-20260617190323537",
+    "probabilities": [
+      {
+        "label": "25 bps increase",
+        "value": 0.545
+      },
+      {
+        "label": "No change",
+        "value": 0.435
+      },
+      {
+        "label": "50+ bps increase",
+        "value": 0.0085
+      },
+      {
+        "label": "25 bps decrease",
+        "value": 0.0055
+      },
+      {
+        "label": "50+ bps decrease",
+        "value": 0.0035
+      }
+    ]
   }
 ]
