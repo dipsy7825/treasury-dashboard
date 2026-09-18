@@ -15,7 +15,7 @@
     },
     {
       "label": "25 bps decrease",
-      "value": 0.0065
+      "value": 0.0055
     },
     {
       "label": "50+ bps decrease",
@@ -25,6 +25,6 @@
   "event_title": "Fed Decision in October?",
   "event_slug": "fed-decision-in-october-20260617190323537",
   "source_url": "https://polymarket.com/event/fed-decision-in-october-20260617190323537",
-  "fetched_at_utc": "2026-09-18T19:22:46.084708Z",
+  "fetched_at_utc": "2026-09-18T21:45:25.682669Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
