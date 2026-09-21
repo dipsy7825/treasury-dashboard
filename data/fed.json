@@ -3,11 +3,11 @@
   "probabilities": [
     {
       "label": "25 bps increase",
-      "value": 0.495
+      "value": 0.525
     },
     {
       "label": "No change",
-      "value": 0.485
+      "value": 0.465
     },
     {
       "label": "50+ bps increase",
@@ -19,12 +19,12 @@
     },
     {
       "label": "50+ bps decrease",
-      "value": 0.0035
+      "value": 0.0025
     }
   ],
   "event_title": "Fed Decision in October?",
   "event_slug": "fed-decision-in-october-20260617190323537",
   "source_url": "https://polymarket.com/event/fed-decision-in-october-20260617190323537",
-  "fetched_at_utc": "2026-09-21T18:25:16.841257Z",
+  "fetched_at_utc": "2026-09-21T22:05:18.176627Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
