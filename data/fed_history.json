@@ -15498,5 +15498,32 @@
         "value": 0.105
       }
     ]
+  },
+  {
+    "timestamp": "2026-09-25T23:54:29.224818Z",
+    "next_meeting": "2026-10-28",
+    "event_slug": "how-many-dissent-at-the-october-fed-meeting",
+    "probabilities": [
+      {
+        "label": "0",
+        "value": 0.445
+      },
+      {
+        "label": "1",
+        "value": 0.24
+      },
+      {
+        "label": "2",
+        "value": 0.115
+      },
+      {
+        "label": "4+",
+        "value": 0.115
+      },
+      {
+        "label": "3",
+        "value": 0.105
+      }
+    ]
   }
 ]
