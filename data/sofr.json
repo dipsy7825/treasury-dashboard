@@ -1,44 +1,44 @@
 {
-  "latest_date": "2026-09-28",
-  "previous_date": "2026-09-25",
+  "latest_date": "2026-09-29",
+  "previous_date": "2026-09-28",
   "table": [
     {
       "rate": "O/N",
-      "current": 3.9,
-      "change_bp": 0.0,
-      "avg_1w": 3.8783,
-      "avg_1m": 3.7335,
-      "avg_ytd": 3.6464,
-      "avg_52w": 3.7373
+      "current": 3.88,
+      "change_bp": -2.0,
+      "avg_1w": 3.8833,
+      "avg_1m": 3.7405,
+      "avg_ytd": 3.6477,
+      "avg_52w": 3.7378
     },
     {
       "rate": "30D Avg",
-      "current": 3.73909,
+      "current": 3.74678,
       "change_bp": 0.8,
-      "avg_1w": 3.6971,
-      "avg_1m": 3.6627,
-      "avg_ytd": 3.6488,
-      "avg_52w": 3.7629
+      "avg_1w": 3.7076,
+      "avg_1m": 3.6664,
+      "avg_ytd": 3.6493,
+      "avg_52w": 3.7628
     },
     {
       "rate": "90D Avg",
-      "current": 3.67933,
+      "current": 3.6818,
       "change_bp": 0.2,
-      "avg_1w": 3.6644,
-      "avg_1m": 3.6517,
-      "avg_ytd": 3.695,
-      "avg_52w": 3.8313
+      "avg_1w": 3.6682,
+      "avg_1m": 3.653,
+      "avg_ytd": 3.6949,
+      "avg_52w": 3.8307
     },
     {
       "rate": "180D Avg",
-      "current": 3.67385,
+      "current": 3.6751,
       "change_bp": 0.1,
-      "avg_1w": 3.6666,
-      "avg_1m": 3.6609,
-      "avg_ytd": 3.8089,
-      "avg_52w": 3.938
+      "avg_1w": 3.6684,
+      "avg_1m": 3.6615,
+      "avg_ytd": 3.8082,
+      "avg_52w": 3.937
     }
   ],
-  "fetched_at_utc": "2026-09-30T00:37:43.889312Z",
+  "fetched_at_utc": "2026-10-01T00:39:21.071128Z",
   "source": "https://markets.newyorkfed.org/api/rates/secured/"
 }
