@@ -2,8 +2,12 @@
   "next_meeting": "2026-10-28",
   "probabilities": [
     {
+      "label": "2",
+      "value": 0.24
+    },
+    {
       "label": "0",
-      "value": 0.295
+      "value": 0.235
     },
     {
       "label": "3",
@@ -14,17 +18,13 @@
       "value": 0.18
     },
     {
-      "label": "2",
-      "value": 0.175
-    },
-    {
       "label": "4+",
-      "value": 0.105
+      "value": 0.1085
     }
   ],
   "event_title": "How many dissent at the October Fed meeting?",
   "event_slug": "how-many-dissent-at-the-october-fed-meeting",
   "source_url": "https://polymarket.com/event/how-many-dissent-at-the-october-fed-meeting",
-  "fetched_at_utc": "2026-10-06T18:43:46.434496Z",
+  "fetched_at_utc": "2026-10-06T22:51:22.392833Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
