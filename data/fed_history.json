@@ -1,86 +1,5 @@
 [
   {
-    "timestamp": "2026-07-10T15:28:00.517494Z",
-    "next_meeting": "2026-07-29",
-    "event_slug": "fed-decision-in-july-181",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.845
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.153
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0055
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0025
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0015
-      }
-    ]
-  },
-  {
-    "timestamp": "2026-07-10T17:19:17.172583Z",
-    "next_meeting": "2026-07-29",
-    "event_slug": "fed-decision-in-july-181",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.785
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.2015
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0055
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0025
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0015
-      }
-    ]
-  },
-  {
-    "timestamp": "2026-07-10T18:56:45.633467Z",
-    "next_meeting": "2026-07-29",
-    "event_slug": "fed-decision-in-july-181",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.775
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.2205
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0055
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0025
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0015
-      }
-    ]
-  },
-  {
     "timestamp": "2026-07-10T20:21:34.911632Z",
     "next_meeting": "2026-07-29",
     "event_slug": "fed-decision-in-july-181",
@@ -14767,6 +14686,33 @@
       {
         "label": "4+",
         "value": 0.053
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-10-08T19:06:21.520963Z",
+    "next_meeting": "2026-10-28",
+    "event_slug": "how-many-dissent-at-the-october-fed-meeting",
+    "probabilities": [
+      {
+        "label": "0",
+        "value": 0.27
+      },
+      {
+        "label": "2",
+        "value": 0.195
+      },
+      {
+        "label": "3",
+        "value": 0.195
+      },
+      {
+        "label": "1",
+        "value": 0.175
+      },
+      {
+        "label": "4+",
+        "value": 0.0485
       }
     ]
   }
