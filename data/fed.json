@@ -7,7 +7,7 @@
     },
     {
       "label": "3",
-      "value": 0.24
+      "value": 0.275
     },
     {
       "label": "2",
@@ -19,12 +19,12 @@
     },
     {
       "label": "4+",
-      "value": 0.06
+      "value": 0.0575
     }
   ],
   "event_title": "How many dissent at the October Fed meeting?",
   "event_slug": "how-many-dissent-at-the-october-fed-meeting",
   "source_url": "https://polymarket.com/event/how-many-dissent-at-the-october-fed-meeting",
-  "fetched_at_utc": "2026-10-12T21:30:31.327455Z",
+  "fetched_at_utc": "2026-10-13T02:47:47.840422Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
