@@ -1,59 +1,5 @@
 [
   {
-    "timestamp": "2026-07-17T18:32:43.083171Z",
-    "next_meeting": "2026-07-29",
-    "event_slug": "fed-decision-in-july-181",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.9415
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.052
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0045
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0025
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0015
-      }
-    ]
-  },
-  {
-    "timestamp": "2026-07-17T20:01:41.934820Z",
-    "next_meeting": "2026-07-29",
-    "event_slug": "fed-decision-in-july-181",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.9445
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.0495
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0045
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0025
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0015
-      }
-    ]
-  },
-  {
     "timestamp": "2026-07-17T21:13:22.314397Z",
     "next_meeting": "2026-07-29",
     "event_slug": "fed-decision-in-july-181",
@@ -14119,6 +14065,33 @@
       {
         "label": "4+",
         "value": 0.056
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-10-15T20:50:07.490095Z",
+    "next_meeting": "2026-10-28",
+    "event_slug": "how-many-dissent-at-the-october-fed-meeting",
+    "probabilities": [
+      {
+        "label": "0",
+        "value": 0.31
+      },
+      {
+        "label": "1",
+        "value": 0.26
+      },
+      {
+        "label": "2",
+        "value": 0.195
+      },
+      {
+        "label": "3",
+        "value": 0.18
+      },
+      {
+        "label": "4+",
+        "value": 0.0665
       }
     ]
   }
