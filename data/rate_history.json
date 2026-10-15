@@ -1,6 +1,6 @@
 {
   "decisions": [],
   "source": "https://fred.stlouisfed.org/series/DFEDTARU",
-  "fetched_at_utc": "2026-10-14T00:32:10.826383Z",
+  "fetched_at_utc": "2026-10-15T23:50:22.233339Z",
   "error": "FRED fetch failed; preserving last successful data"
 }
