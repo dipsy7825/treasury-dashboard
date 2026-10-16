@@ -1,60 +1,60 @@
 {
-  "latest_date": "10/15/2026",
-  "previous_date": "10/14/2026",
+  "latest_date": "10/16/2026",
+  "previous_date": "10/15/2026",
   "yields": {
-    "1 Mo": 4.17,
-    "1.5 Month": 4.15,
-    "2 Mo": 4.19,
-    "3 Mo": 4.28,
-    "4 Mo": 4.35,
-    "6 Mo": 4.35,
-    "1 Yr": 4.49,
-    "2 Yr": 4.77,
-    "3 Yr": 4.85,
-    "5 Yr": 4.91,
-    "7 Yr": 5.0,
-    "10 Yr": 5.1,
-    "20 Yr": 5.48,
+    "1 Mo": 4.12,
+    "1.5 Month": 4.14,
+    "2 Mo": 4.17,
+    "3 Mo": 4.26,
+    "4 Mo": 4.32,
+    "6 Mo": 4.34,
+    "1 Yr": 4.46,
+    "2 Yr": 4.74,
+    "3 Yr": 4.82,
+    "5 Yr": 4.89,
+    "7 Yr": 4.98,
+    "10 Yr": 5.09,
+    "20 Yr": 5.47,
     "30 Yr": 5.43
   },
   "table": [
     {
       "tenor": "2 Yr",
-      "current": 4.77,
-      "change_bp": -5.0,
-      "avg_1w": 4.786,
-      "avg_1m": 4.7941,
-      "avg_ytd": 4.0168,
-      "avg_52w": 3.9111
+      "current": 4.74,
+      "change_bp": -3.0,
+      "avg_1w": 4.784,
+      "avg_1m": 4.7973,
+      "avg_ytd": 4.0205,
+      "avg_52w": 3.9161
     },
     {
       "tenor": "5 Yr",
-      "current": 4.91,
-      "change_bp": -9.0,
-      "avg_1w": 4.984,
-      "avg_1m": 4.9686,
-      "avg_ytd": 4.1739,
-      "avg_52w": 4.0678
+      "current": 4.89,
+      "change_bp": -2.0,
+      "avg_1w": 4.964,
+      "avg_1m": 4.9714,
+      "avg_ytd": 4.1775,
+      "avg_52w": 4.0729
     },
     {
       "tenor": "10 Yr",
-      "current": 5.1,
-      "change_bp": -9.0,
-      "avg_1w": 5.192,
-      "avg_1m": 5.1577,
-      "avg_ytd": 4.5016,
-      "avg_52w": 4.4163
+      "current": 5.09,
+      "change_bp": -1.0,
+      "avg_1w": 5.166,
+      "avg_1m": 5.1618,
+      "avg_ytd": 4.5046,
+      "avg_52w": 4.4205
     },
     {
       "tenor": "30 Yr",
       "current": 5.43,
-      "change_bp": -9.0,
-      "avg_1w": 5.542,
-      "avg_1m": 5.4995,
-      "avg_ytd": 5.0346,
-      "avg_52w": 4.9674
+      "change_bp": 0.0,
+      "avg_1w": 5.508,
+      "avg_1m": 5.5027,
+      "avg_ytd": 5.0366,
+      "avg_52w": 4.9706
     }
   ],
-  "fetched_at_utc": "2026-10-15T23:43:50.668090Z",
+  "fetched_at_utc": "2026-10-16T23:44:02.696913Z",
   "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve&field_tdr_date_value=2026&page&_format=csv"
 }
