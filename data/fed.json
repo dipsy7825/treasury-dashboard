@@ -3,12 +3,12 @@
   "probabilities": [
     {
       "label": "Hike 25 bps flips No change for October Fed by October 27?",
-      "value": 0.105
+      "value": 0.1
     }
   ],
   "event_title": "Hike 25 bps flips No change for October Fed by October 27?",
   "event_slug": "hike-25-bps-flips-no-change-for-october-fed-by-october-27",
   "source_url": "https://polymarket.com/event/hike-25-bps-flips-no-change-for-october-fed-by-october-27",
-  "fetched_at_utc": "2026-10-20T17:43:05.673975Z",
+  "fetched_at_utc": "2026-10-20T21:08:07.955101Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
