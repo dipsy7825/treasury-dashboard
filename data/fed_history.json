@@ -13276,5 +13276,16 @@
         "value": 0.02
       }
     ]
+  },
+  {
+    "timestamp": "2026-10-23T17:38:42.834798Z",
+    "next_meeting": "2026-10-28",
+    "event_slug": "hike-25-bps-flips-no-change-for-october-fed-by-october-27",
+    "probabilities": [
+      {
+        "label": "Hike 25 bps flips No change for October Fed by October 27?",
+        "value": 0.03
+      }
+    ]
   }
 ]
