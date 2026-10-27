@@ -1,86 +1,5 @@
 [
   {
-    "timestamp": "2026-07-29T15:06:08.326402Z",
-    "next_meeting": "2026-07-29",
-    "event_slug": "fed-decision-in-july-181",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.7515
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.2495
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0035
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0015
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0005
-      }
-    ]
-  },
-  {
-    "timestamp": "2026-07-29T16:47:29.104242Z",
-    "next_meeting": "2026-07-29",
-    "event_slug": "fed-decision-in-july-181",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.7405
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.2585
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0075
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0035
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0005
-      }
-    ]
-  },
-  {
-    "timestamp": "2026-07-29T18:02:54.615199Z",
-    "next_meeting": "2026-07-29",
-    "event_slug": "fed-decision-in-july-181",
-    "probabilities": [
-      {
-        "label": "No change",
-        "value": 0.9995
-      },
-      {
-        "label": "50+ bps decrease",
-        "value": 0.0005
-      },
-      {
-        "label": "25 bps decrease",
-        "value": 0.0005
-      },
-      {
-        "label": "25 bps increase",
-        "value": 0.0005
-      },
-      {
-        "label": "50+ bps increase",
-        "value": 0.0005
-      }
-    ]
-  },
-  {
     "timestamp": "2026-07-29T19:51:12.333950Z",
     "next_meeting": "2026-07-29",
     "event_slug": "fed-decision-in-july-181",
@@ -13005,6 +12924,17 @@
       {
         "label": "Hike 25 bps flips No change for October Fed by October 27?",
         "value": 0.0105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-10-27T18:30:04.646484Z",
+    "next_meeting": "2026-10-28",
+    "event_slug": "hike-25-bps-flips-no-change-for-october-fed-by-october-27",
+    "probabilities": [
+      {
+        "label": "Hike 25 bps flips No change for October Fed by October 27?",
+        "value": 0.009
       }
     ]
   }
