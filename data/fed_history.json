@@ -1,134 +1,5 @@
 [
   {
-    "timestamp": "2026-07-30T19:59:58.085149Z",
-    "next_meeting": "2026-09-16",
-    "event_slug": "fed-decisions-jun-sep",
-    "probabilities": [
-      {
-        "label": "Other",
-        "value": 0.525
-      },
-      {
-        "label": "Pause\u2013Pause\u2013Pause",
-        "value": 0.445
-      },
-      {
-        "label": "Pause\u2013Pause\u2013Cut",
-        "value": 0.0145
-      },
-      {
-        "label": "Cut\u2013Pause\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Pause\u2013Cut",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Cut\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Cut\u2013Cut",
-        "value": 0.0
-      },
-      {
-        "label": "Pause\u2013Cut\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Pause\u2013Cut\u2013Cut",
-        "value": 0.0
-      }
-    ]
-  },
-  {
-    "timestamp": "2026-07-30T21:17:50.301403Z",
-    "next_meeting": "2026-09-16",
-    "event_slug": "fed-decisions-jun-sep",
-    "probabilities": [
-      {
-        "label": "Other",
-        "value": 0.525
-      },
-      {
-        "label": "Pause\u2013Pause\u2013Pause",
-        "value": 0.445
-      },
-      {
-        "label": "Pause\u2013Pause\u2013Cut",
-        "value": 0.0205
-      },
-      {
-        "label": "Cut\u2013Pause\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Pause\u2013Cut",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Cut\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Cut\u2013Cut",
-        "value": 0.0
-      },
-      {
-        "label": "Pause\u2013Cut\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Pause\u2013Cut\u2013Cut",
-        "value": 0.0
-      }
-    ]
-  },
-  {
-    "timestamp": "2026-07-30T22:34:20.712318Z",
-    "next_meeting": "2026-09-16",
-    "event_slug": "fed-decisions-jun-sep",
-    "probabilities": [
-      {
-        "label": "Other",
-        "value": 0.525
-      },
-      {
-        "label": "Pause\u2013Pause\u2013Pause",
-        "value": 0.445
-      },
-      {
-        "label": "Pause\u2013Pause\u2013Cut",
-        "value": 0.0205
-      },
-      {
-        "label": "Cut\u2013Pause\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Pause\u2013Cut",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Cut\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Cut\u2013Cut",
-        "value": 0.0
-      },
-      {
-        "label": "Pause\u2013Cut\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Pause\u2013Cut\u2013Cut",
-        "value": 0.0
-      }
-    ]
-  },
-  {
     "timestamp": "2026-07-31T15:14:19.698637Z",
     "next_meeting": "2026-09-16",
     "event_slug": "fed-decisions-jun-sep",
@@ -12688,6 +12559,49 @@
       {
         "label": "4+",
         "value": 0.0005
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-10-28T22:55:48.368952Z",
+    "next_meeting": "2026-10-28",
+    "event_slug": "how-high-will-10-year-treasury-yield-go-in-october",
+    "probabilities": [
+      {
+        "label": "5.29%",
+        "value": 1.0
+      },
+      {
+        "label": "5.45%",
+        "value": 0.0145
+      },
+      {
+        "label": "5.50%",
+        "value": 0.012
+      },
+      {
+        "label": "5.60%",
+        "value": 0.0105
+      },
+      {
+        "label": "5.38%",
+        "value": 0.0095
+      },
+      {
+        "label": "5.41%",
+        "value": 0.0045
+      },
+      {
+        "label": "5.32%",
+        "value": 0.0035
+      },
+      {
+        "label": "5.35%",
+        "value": 0.003
+      },
+      {
+        "label": "5.55%",
+        "value": 0.002
       }
     ]
   }
