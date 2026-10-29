@@ -1,46 +1,62 @@
 {
-  "next_meeting": "2026-10-28",
+  "next_meeting": "2026-12-16",
   "probabilities": [
     {
-      "label": "5.29%",
+      "label": "5.40%",
       "value": 1.0
     },
     {
       "label": "5.45%",
-      "value": 0.0145
+      "value": 1.0
     },
     {
       "label": "5.50%",
-      "value": 0.012
-    },
-    {
-      "label": "5.60%",
-      "value": 0.0105
-    },
-    {
-      "label": "5.38%",
-      "value": 0.0095
-    },
-    {
-      "label": "5.41%",
-      "value": 0.0045
-    },
-    {
-      "label": "5.32%",
-      "value": 0.0035
-    },
-    {
-      "label": "5.35%",
-      "value": 0.003
+      "value": 1.0
     },
     {
       "label": "5.55%",
-      "value": 0.002
+      "value": 1.0
+    },
+    {
+      "label": "5.60%",
+      "value": 1.0
+    },
+    {
+      "label": "5.65%",
+      "value": 1.0
+    },
+    {
+      "label": "5.40%",
+      "value": 0.84
+    },
+    {
+      "label": "5.50%",
+      "value": 0.615
+    },
+    {
+      "label": "5.60%",
+      "value": 0.595
+    },
+    {
+      "label": "5.70%",
+      "value": 0.22
+    },
+    {
+      "label": "5.80%",
+      "value": 0.1575
+    },
+    {
+      "label": "5.90%",
+      "value": 0.065
+    },
+    {
+      "label": "6.00%",
+      "value": 0.062
     }
   ],
-  "event_title": "How high will 10-year Treasury yield go in October?",
-  "event_slug": "how-high-will-10-year-treasury-yield-go-in-october",
-  "source_url": "https://polymarket.com/event/how-high-will-10-year-treasury-yield-go-in-october",
-  "fetched_at_utc": "2026-10-28T22:55:48.368952Z",
+  "event_title": "How high will 30-year Treasury yield go before 2027?",
+  "event_slug": "how-high-will-30-year-treasury-yield-go-before-2027",
+  "source_url": "https://polymarket.com/event/how-high-will-30-year-treasury-yield-go-before-2027",
+  "fetched_at_utc": "2026-10-29T18:45:06.943784Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
