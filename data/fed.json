@@ -27,23 +27,23 @@
     },
     {
       "label": "5.40%",
-      "value": 0.84
+      "value": 0.835
     },
     {
       "label": "5.50%",
-      "value": 0.615
+      "value": 0.79
     },
     {
       "label": "5.60%",
-      "value": 0.595
+      "value": 0.455
     },
     {
       "label": "5.70%",
-      "value": 0.22
+      "value": 0.215
     },
     {
       "label": "5.80%",
-      "value": 0.1575
+      "value": 0.1585
     },
     {
       "label": "5.90%",
@@ -51,12 +51,12 @@
     },
     {
       "label": "6.00%",
-      "value": 0.062
+      "value": 0.0585
     }
   ],
   "event_title": "How high will 30-year Treasury yield go before 2027?",
   "event_slug": "how-high-will-30-year-treasury-yield-go-before-2027",
   "source_url": "https://polymarket.com/event/how-high-will-30-year-treasury-yield-go-before-2027",
-  "fetched_at_utc": "2026-10-29T18:45:06.943784Z",
+  "fetched_at_utc": "2026-10-29T23:03:31.071891Z",
   "calendar_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 }
