@@ -11764,5 +11764,64 @@
         "value": 0.0525
       }
     ]
+  },
+  {
+    "timestamp": "2026-11-06T19:48:12.998373Z",
+    "next_meeting": "2026-12-16",
+    "event_slug": "how-high-will-30-year-treasury-yield-go-before-2027",
+    "probabilities": [
+      {
+        "label": "5.40%",
+        "value": 1.0
+      },
+      {
+        "label": "5.45%",
+        "value": 1.0
+      },
+      {
+        "label": "5.50%",
+        "value": 1.0
+      },
+      {
+        "label": "5.55%",
+        "value": 1.0
+      },
+      {
+        "label": "5.60%",
+        "value": 1.0
+      },
+      {
+        "label": "5.65%",
+        "value": 1.0
+      },
+      {
+        "label": "5.40%",
+        "value": 0.63
+      },
+      {
+        "label": "5.50%",
+        "value": 0.525
+      },
+      {
+        "label": "5.60%",
+        "value": 0.35
+      },
+      {
+        "label": "5.70%",
+        "value": 0.125
+      },
+      {
+        "label": "5.80%",
+        "value": 0.06
+      },
+      {
+        "label": "6.00%",
+        "value": 0.045
+      },
+      {
+        "label": "5.90%",
+        "value": 0.044
+      }
+    ]
   }
 ]
