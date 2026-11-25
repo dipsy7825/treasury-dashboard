@@ -1,48 +1,5 @@
 [
   {
-    "timestamp": "2026-08-26T23:58:22.970082Z",
-    "next_meeting": "2026-09-16",
-    "event_slug": "fed-decisions-jun-sep",
-    "probabilities": [
-      {
-        "label": "Pause\u2013Pause\u2013Pause",
-        "value": 0.655
-      },
-      {
-        "label": "Other",
-        "value": 0.32
-      },
-      {
-        "label": "Pause\u2013Pause\u2013Cut",
-        "value": 0.0115
-      },
-      {
-        "label": "Cut\u2013Pause\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Pause\u2013Cut",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Cut\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Cut\u2013Cut\u2013Cut",
-        "value": 0.0
-      },
-      {
-        "label": "Pause\u2013Cut\u2013Pause",
-        "value": 0.0
-      },
-      {
-        "label": "Pause\u2013Cut\u2013Cut",
-        "value": 0.0
-      }
-    ]
-  },
-  {
     "timestamp": "2026-08-27T22:43:25.021725Z",
     "next_meeting": "2026-09-16",
     "event_slug": "fed-decisions-jun-sep",
@@ -5836,6 +5793,65 @@
       {
         "label": "6.00%",
         "value": 0.0335
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-25T22:05:06.950091Z",
+    "next_meeting": "2026-12-16",
+    "event_slug": "how-high-will-30-year-treasury-yield-go-before-2027",
+    "probabilities": [
+      {
+        "label": "5.40%",
+        "value": 1.0
+      },
+      {
+        "label": "5.45%",
+        "value": 1.0
+      },
+      {
+        "label": "5.50%",
+        "value": 1.0
+      },
+      {
+        "label": "5.55%",
+        "value": 1.0
+      },
+      {
+        "label": "5.60%",
+        "value": 1.0
+      },
+      {
+        "label": "5.65%",
+        "value": 1.0
+      },
+      {
+        "label": "5.40%",
+        "value": 1.0
+      },
+      {
+        "label": "5.50%",
+        "value": 0.18
+      },
+      {
+        "label": "5.60%",
+        "value": 0.14
+      },
+      {
+        "label": "5.70%",
+        "value": 0.07
+      },
+      {
+        "label": "5.80%",
+        "value": 0.063
+      },
+      {
+        "label": "5.90%",
+        "value": 0.0595
+      },
+      {
+        "label": "6.00%",
+        "value": 0.045
       }
     ]
   }
